@@ -7,6 +7,7 @@ import Dashboard from '@/views/Dashboard'
 
 // Dashboard views
 import DashHome from '@/views/dashboard/DashHome'
+import Students from '@/views/dashboard/Students'
 import StudentAdd from '@/views/dashboard/StudentAdd'
 
 Vue.use(Router)
@@ -32,6 +33,11 @@ export default new Router({
           path: '',
           name: 'DashHome',
           component: DashHome
+        },
+        {
+          path: 'students',
+          name: 'Students',
+          component: Students
         },
         {
           path: 'students/add',

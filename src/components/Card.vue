@@ -6,7 +6,6 @@
     <footer class="card-footer">
       <a :href="viewLink" class="card-footer-item">View</a>
       <a :href="addLink" class="card-footer-item">Add</a>
-      <!-- <a href="#" class="card-footer-item">Delete</a> -->
     </footer>
   </div>
 </template>

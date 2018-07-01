@@ -26,13 +26,13 @@ export default {
       notification: {
         hidden: true,
         styleClass: '',
-        message: 'This is a notification message'
+        message: 'Default Notification - You should not see this!'
       }
     }
   },
   methods: {
     handleNotification (notification) {
-      alert('Received emitted alert')
+      // alert('Received emitted alert')
       this.notification.hidden = false
       this.notification.styleClass = notification.styleClass
       this.notification.message = notification.msg
