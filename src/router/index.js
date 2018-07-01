@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-import Dashboard from '@/components/Dashboard'
+import Home from '@/views/Home'
+import Login from '@/views/Login'
+import Dashboard from '@/views/Dashboard'
+
+// Dashboard views
+import DashHome from '@/views/dashboard/DashHome'
+import StudentAdd from '@/views/dashboard/StudentAdd'
 
 Vue.use(Router)
 
@@ -15,9 +20,25 @@ export default new Router({
       component: Home
     },
     {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
       path: '/dashboard',
-      name: 'Dashboard',
-      component: Dashboard
+      component: Dashboard,
+      children: [
+        {
+          path: '',
+          name: 'DashHome',
+          component: DashHome
+        },
+        {
+          path: 'students/add',
+          name: 'StudentAdd',
+          component: StudentAdd
+        }
+      ]
     }
   ]
 })

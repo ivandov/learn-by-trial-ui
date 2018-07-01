@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <navbar></navbar>
-    
     <main>
       <router-view></router-view>
     </main>
@@ -16,7 +14,13 @@ export default {
   name: 'app',
   components: {
     Navbar
-    // SideMenu
   }
 }
 </script>
+
+<style>
+html{
+  background-color: #E3F3F0;
+}
+</style>
+

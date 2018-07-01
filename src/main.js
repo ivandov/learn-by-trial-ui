@@ -6,6 +6,7 @@ import router from './router'
 // import 'bulmaswatch/minty/_variables.scss'
 // import 'bulmaswatch/minty/_overrides.scss'
 import 'bulmaswatch/minty/bulmaswatch.min.css'
+// import 'bulma-checkradio/dist/css/bulma-checkradio.min.css'
 
 Vue.config.productionTip = false
 

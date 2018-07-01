@@ -1,9 +1,7 @@
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="/">
-          Learn By Trial
-        </a>
+        <a class="navbar-item has-text-weight-bold" href="/">Learn By Trial</a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" v-on:click="showNav = !showNav" v-bind:class="{ 'is-active' : showNav }">
         <!-- <div class="navbar-burger" v-on:click="showNav = !showNav" v-bind:class="{ 'is-active' : showNav }"> -->
@@ -14,7 +12,7 @@
       </div>
       <div class="navbar-menu" v-bind:class="{ 'is-active' : showNav }">
         <div class="navbar-end">
-          <a class="navbar-item">
+          <a class="navbar-item" href="/login">
             Login
           </a>
         </div>
@@ -37,5 +35,10 @@ export default {
 <style>
 .navbar {
   border-radius: 0px;
+}
+
+.navbar-item {
+  font-weight: bold !important;
+  color: white;
 }
 </style>
