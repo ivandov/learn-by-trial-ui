@@ -16,7 +16,7 @@
             <tr v-for="student in students" :key="student.id">
               <!-- <td><a :href="student.id">{{ student.name }}</a></td> -->
               <td><router-link :to="{name: 'Student', params: { id: student.id}}">{{student.name}}</router-link></td>
-              <td>{{ student.birthdate }}</td>
+              <td>{{ student.birthdate | moment("MM/DD/YYYY") }}</td>
               <td>{{ student.sex }}</td>
               <td>{{ student.race }}</td>
             </tr>

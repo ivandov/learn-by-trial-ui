@@ -1,0 +1,9 @@
+---
+applications:
+- name: learn_by_trial
+  memory: 512M
+  instances: 1
+  env:
+    NPM_CONFIG_PRODUCTION: false
+    NODE_ENV: development
+    API_URL: https://learnbytrialapi.us-east.mybluemix.net/api
