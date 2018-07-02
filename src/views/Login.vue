@@ -9,7 +9,7 @@
             <figure class="avatar">
               <img src="https://placehold.it/128x128">
             </figure>
-            <form>
+            <!-- <form> -->
               <div class="field">
                 <div class="control">
                   <input class="input is-large" type="username" placeholder="Username" autofocus="">
@@ -26,8 +26,8 @@
                 Remember me
                 </label>
               </div>
-              <button class="button is-block is-success is-large is-fullwidth">Login</button>
-            </form>
+              <button class="button is-block is-success is-large is-fullwidth" @click="login">Login</button>
+            <!-- </form> -->
           </div>
           <p>
             <a href="../">Sign Up</a> &nbsp;·&nbsp;
@@ -45,6 +45,14 @@ export default {
   name: 'login',
   data () {
     return {}
+  },
+  methods: {
+    login () {
+      // Reference this article: https://auth0.com/blog/build-an-app-with-vuejs/
+
+      localStorage.setItem('authenticated', true)
+      this.$router.replace({path: '/dashboard'})
+    }
   }
 }
 </script>

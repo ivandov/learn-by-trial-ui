@@ -1,15 +1,24 @@
 <template>
   <div id='dashboard'>
-    <navbar></navbar>
-    <section id="dashboard-content">
+    <navbar logged-in></navbar>
+    <div id="dashboard-content">
       <div class="container">
+        <nav class="breadcrumb is-hidden-mobile" aria-label="breadcrumbs">
+          <ul>
+            <li v-for="(crumb, index) in breadcrumbs" :key="crumb.name" v-bind:class="{'is-active' : index === (breadcrumbs.length-1)}" >
+              <a :href="crumb.path" >{{ crumb.name | capitalize }}</a>
+            </li>
+          </ul> 
+        </nav>
+        
         <div class="notification" v-bind:class="[{ 'is-hidden': notification.hidden }, notification.styleClass]">
-          <button class="delete" @click="notification.hidden = !notification.hidden"></button>
+          <button class="delete is-large" @click="notification.hidden = !notification.hidden"></button>
           {{ notification.message }}
         </div>
+
         <router-view v-on:notification="handleNotification"></router-view>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -27,8 +36,12 @@ export default {
         hidden: true,
         styleClass: '',
         message: 'Default Notification - You should not see this!'
-      }
+      },
+      breadcrumbs: []
     }
+  },
+  mounted () {
+    this.createBreadcrumbs()
   },
   methods: {
     handleNotification (notification) {
@@ -36,6 +49,23 @@ export default {
       this.notification.hidden = false
       this.notification.styleClass = notification.styleClass
       this.notification.message = notification.msg
+    },
+    createBreadcrumbs () {
+      let paths = this.$route.path.split('/')
+      paths.shift()
+      let fullpath = ''
+      paths.forEach((path) => {
+        console.log(path)
+        let p = {}
+        p.name = path
+        fullpath += '/' + path
+        p.path = fullpath
+
+        console.log(p)
+
+        this.breadcrumbs.push(p)
+      })
+      console.log(this.breadcrumbs)
     }
   }
 }

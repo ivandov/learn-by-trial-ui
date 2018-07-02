@@ -6,6 +6,8 @@
     <footer class="card-footer">
       <a :href="viewLink" class="card-footer-item">View</a>
       <a :href="addLink" class="card-footer-item">Add</a>
+      <!-- <router-link :to="{path: viewLinkComponent}" class="card-footer-item">View</router-link>
+      <router-link :to="{name: addLinkComponent}" class="card-footer-item">Add</router-link> -->
     </footer>
   </div>
 </template>
@@ -16,7 +18,9 @@ export default {
   props: {
     title: String,
     viewLink: String,
-    addLink: String
+    addLink: String,
+    viewLinkComponent: String,
+    addLinkComponent: String
   },
   data () {
     return {}

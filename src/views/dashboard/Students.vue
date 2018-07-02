@@ -14,7 +14,8 @@
           </thead>
           <tbody>
             <tr v-for="student in students" :key="student.id">
-              <td>{{ student.name }}</td>
+              <!-- <td><a :href="student.id">{{ student.name }}</a></td> -->
+              <td><router-link :to="{name: 'Student', params: { id: student.id}}">{{student.name}}</router-link></td>
               <td>{{ student.birthdate }}</td>
               <td>{{ student.sex }}</td>
               <td>{{ student.race }}</td>
@@ -27,8 +28,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'Students',
   data () {
@@ -42,7 +41,7 @@ export default {
   methods: {
     async getStudents () {
       let uri = process.env.API_URL + '/students'
-      let res = await axios.get(uri)
+      let res = await this.$http.get(uri)
       this.students = res.data
     }
   }

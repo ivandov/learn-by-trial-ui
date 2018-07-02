@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   name: 'StudentAdd',
   components: {
@@ -91,15 +89,11 @@ export default {
   },
   methods: {
     async addStudent () {
-      let uri = process.env.API_URL + '/students'
-      // console.log(uri)
-      alert('Posting: \n' + JSON.stringify(this.student, null, 2))
-
       try {
-        let res = await axios.post(uri, this.student)
+        let res = await this.$http.post('/students', this.student)
 
         // Assuming HTTP 2** code
-        this.$router.push({name: 'DashHome'})
+        this.$router.push({name: 'Student', params: {id: res.data.id}})
         this.$emit('notification', {
           msg: 'Student ' + res.data.name + ' has been added successfully with id: ' + res.data.id,
           styleClass: 'is-success'
