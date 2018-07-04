@@ -100,9 +100,19 @@ export default {
         })
       }
       catch (error) {
+        console.error(error)
+        let message = ''
+        let style = 'is-warning'
+        if (error.response) {
+          message = error.response.data.error.message
+        }
+        else {
+          message = 'Error contacting Learn By Trial server'
+          style = 'is-danger'
+        }
         this.$emit('notification', {
-          msg: error.response.data.error.message,
-          styleClass: 'is-warning'
+          msg: message,
+          styleClass: style
         })
       }
     }

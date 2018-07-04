@@ -7,11 +7,13 @@ import Dashboard from '@/views/Dashboard'
 
 // Dashboard views
 import DashHome from '@/views/dashboard/DashHome'
-import Students from '@/views/dashboard/Students'
-import Student from '@/views/dashboard/Student'
-import StudentAdd from '@/views/dashboard/StudentAdd'
-import StudentProgramAdd from '@/views/dashboard/StudentProgramAdd'
-import StudentObjectiveAdd from '@/views/dashboard/StudentObjectiveAdd'
+
+// Dashboard -> Students
+import StudentList from '@/views/dashboard/students/List'
+import StudentProfile from '@/views/dashboard/students/Profile'
+import StudentAdd from '@/views/dashboard/students/Add'
+import StudentProgramAdd from '@/views/dashboard/students/ProgramAdd'
+import StudentObjectiveAdd from '@/views/dashboard/students/ObjectiveAdd'
 
 Vue.use(Router)
 
@@ -40,7 +42,7 @@ export default new Router({
         {
           path: 'students',
           name: 'Students',
-          component: Students
+          component: StudentList
         },
         {
           path: 'students/add',
@@ -50,7 +52,7 @@ export default new Router({
         {
           path: 'students/:id',
           name: 'Student',
-          component: Student
+          component: StudentProfile
         },
         {
           path: 'students/:id/programs/add',

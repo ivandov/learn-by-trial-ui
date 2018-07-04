@@ -78,7 +78,7 @@ export default {
 
 @media screen and (max-width: 768px) {
   #dashboard-content {
-     margin: 0px 10px;
+     padding: 0px 10px;
   }
 }
 </style>

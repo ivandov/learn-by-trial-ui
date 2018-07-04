@@ -55,9 +55,9 @@
       </div>
     </div>
     <div class="tile is-4 is-parent">
-      <div class="tile is-child box">
+      <div id="studentProf" class="tile is-child box">
         <p class="title">Student Profile</p>
-        <table id="studentProfTable" class="table is-fullwidth is-hoverable">
+        <table class="table is-fullwidth is-hoverable">
           <tbody>
             <tr>
               <th>Name</th>
@@ -78,7 +78,8 @@
           </tbody>
         </table>
 
-        <button class="button is-info is-outlined is-fullwidth">View Trials</button>
+        <button class="button is-info is-fullwidth">View Appointments</button>
+        <button class="button is-success is-fullwidth">Add Caregiver</button>
       </div>
     </div>
   </div>
@@ -153,10 +154,11 @@ export default {
 </script>
 
 <style>
-#studentProfTable th {
+#studentProf table th {
   padding-left: 0px !important;
 }
-#studentProfTable button {
+#studentProf button {
+  margin-bottom: 5px;
   margin-top: auto;
 }
 </style>
