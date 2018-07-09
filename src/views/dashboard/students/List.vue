@@ -3,27 +3,53 @@
     <div class="column is-12">
       <div class="card">
         <header class="card-header">
-          <p class="card-header-title title">All Students</p>
+          <p class="card-header-title">All Students</p>
         </header>
         <div class="card-content">
-          <table class="table is-fullwidth is-hoverable">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Birthdate</th>
-                <th>Sex</th>
-                <th>Race</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="student in students" :key="student.id">
-                <td><router-link :to="{name: 'Student', params: { id: student.id}}">{{student.name}}</router-link></td>
-                <td>{{ student.birthdate | moment("MM/DD/YYYY") }}</td>
-                <td>{{ student.sex }}</td>
-                <td>{{ student.race }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <b-field>
+            <b-input placeholder="Search..."
+                type="search"
+                icon="magnify"
+                v-model="search_query.name">
+            </b-input>
+          </b-field>
+
+          <b-table :data="filter">
+            <template slot-scope="props">
+                <b-table-column field="name" label="Name">
+                  <router-link :to="{name: 'Student', params: { id: props.row.id}}">{{ props.row.name }}</router-link>
+                </b-table-column>
+
+                <b-table-column field="date" label="Birthdate">
+                  {{ new Date(props.row.birthdate).toLocaleDateString() }}
+                </b-table-column>
+
+                <b-table-column label="Sex">
+                    <b-icon 
+                        :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
+                    </b-icon>
+                    {{ props.row.sex }}
+                </b-table-column>
+
+                <b-table-column field="race" label="Race">
+                    {{ props.row.race }}
+                </b-table-column>
+            </template>
+
+            <template slot="empty">
+                <section class="section">
+                    <div class="content has-text-grey has-text-centered">
+                        <p>
+                            <b-icon
+                                icon="emoticon-sad"
+                                size="is-large">
+                            </b-icon>
+                        </p>
+                        <p>Nothing here.</p>
+                    </div>
+                </section>
+            </template>
+          </b-table>
         </div>
       </div>
     </div>
@@ -35,11 +61,24 @@ export default {
   name: 'Students',
   data () {
     return {
-      students: []
+      students: [],
+      search_query: {
+        name: ''
+      }
     }
   },
   mounted () {
     this.getStudents()
+  },
+  computed: {
+    filter: function () {
+      var nameRegex = new RegExp(this.search_query.name, 'i')
+      var students = []
+      this.students.forEach((student) => {
+        if (student.name.match(nameRegex)) students.push(student)
+      })
+      return students
+    }
   },
   methods: {
     async getStudents () {
