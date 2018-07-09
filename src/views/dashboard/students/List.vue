@@ -13,6 +13,7 @@
                 v-model="search_query.name">
             </b-input>
           </b-field>
+          <br>
 
           <b-table :data="filter">
             <template slot-scope="props">
@@ -25,14 +26,18 @@
                 </b-table-column>
 
                 <b-table-column label="Sex">
-                    <b-icon 
-                        :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
-                    </b-icon>
-                    {{ props.row.sex }}
+                  <b-icon 
+                    :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
+                  </b-icon>
+                  {{ props.row.sex }}
                 </b-table-column>
 
                 <b-table-column field="race" label="Race">
-                    {{ props.row.race }}
+                  {{ props.row.race }}
+                </b-table-column>
+
+                <b-table-column field="" label="" v-if="appointments">
+                  <button class="button is-fullwidth is-success" @click="newAppointment" >Start Appointment</button>
                 </b-table-column>
             </template>
 
@@ -58,7 +63,9 @@
 
 <script>
 export default {
-  name: 'Students',
+  props: {
+    appointments: Boolean
+  },
   data () {
     return {
       students: [],
@@ -91,5 +98,10 @@ export default {
 </script>
 
 <style>
-
+td:last-child::before{
+  content: none !important;
+}
+td:last-child span {
+  width: 100% !important;
+}
 </style>

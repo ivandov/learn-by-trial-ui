@@ -41,6 +41,14 @@ export default new Router({
           component: DashHome
         },
         {
+          path: 'appointments',
+          name: 'Appointments',
+          component: StudentList,
+          props: {
+            appointments: true
+          }
+        },
+        {
           path: 'students',
           name: 'Students',
           component: StudentList
