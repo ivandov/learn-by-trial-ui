@@ -1,21 +1,16 @@
 import Vue from 'vue'
-import App from './App'
-import router from './router'
 import Axios from 'axios'
+import Buefy from 'buefy'
 import VueMoment from 'vue-moment'
 
-// import 'bulma/css/bulma.css'
-// import 'bulmaswatch/minty/_variables.scss'
-// import 'bulmaswatch/minty/_overrides.scss'
-import 'bulmaswatch/minty/bulmaswatch.min.css'
-// import 'bulma-checkradio/dist/css/bulma-checkradio.min.css'
+import App from './App'
+import router from './router'
 
-const axios = Axios.create({
-  baseURL: process.env.API_URL
-})
-Vue.prototype.$http = axios
+import 'mdi/css/materialdesignicons.css'
 
+Vue.use(Buefy)
 Vue.use(VueMoment)
+Vue.prototype.$http = Axios.create({baseURL: process.env.API_URL})
 
 Vue.filter('capitalize', function (value) {
   if (!value) return ''

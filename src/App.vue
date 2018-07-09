@@ -18,9 +18,20 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  @import "~bulmaswatch/minty/_variables";
+  @import "~bulma";
+  @import "~buefy/src/scss/buefy";
+  @import "~bulmaswatch/minty/_overrides";
+</style>
+
 <style>
 html{
   background-color: #E3F3F0;
+}
+
+#app {
+  margin-bottom: 10px;
 }
 </style>
 

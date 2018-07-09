@@ -10,10 +10,11 @@ import DashHome from '@/views/dashboard/DashHome'
 
 // Dashboard -> Students
 import StudentList from '@/views/dashboard/students/List'
-import StudentProfile from '@/views/dashboard/students/Profile'
+import StudentDash from '@/views/dashboard/students/StudentDash'
 import StudentAdd from '@/views/dashboard/students/Add'
-import StudentProgramAdd from '@/views/dashboard/students/ProgramAdd'
-import StudentObjectiveAdd from '@/views/dashboard/students/ObjectiveAdd'
+import StudentProgram from '@/views/dashboard/students/Program'
+import StudentObjective from '@/views/dashboard/students/Objective'
+import StudentTargets from '@/views/dashboard/students/Targets'
 
 Vue.use(Router)
 
@@ -52,27 +53,45 @@ export default new Router({
         {
           path: 'students/:id',
           name: 'Student',
-          component: StudentProfile
+          component: StudentDash
         },
         {
           path: 'students/:id/programs/add',
           name: 'StudentProgramAdd',
-          component: StudentProgramAdd
+          component: StudentProgram,
+          props: {
+            create: true
+          }
         },
         {
-          path: 'students/:id/programs/:program_id',
-          name: 'StudentProgram',
-          component: StudentProgramAdd
+          path: 'students/:id/programs/:programId',
+          name: 'StudentProgramEdit',
+          component: StudentProgram
         },
         {
           path: 'students/:id/objectives/add',
           name: 'StudentObjectiveAdd',
-          component: StudentObjectiveAdd
+          component: StudentObjective,
+          props: {
+            create: true
+          }
         },
         {
-          path: 'students/:id/objectives/:objective_id',
-          name: 'StudentObjectiveAdd',
-          component: StudentObjectiveAdd
+          path: 'students/:id/objectives/:objectiveId',
+          name: 'StudentObjective',
+          component: StudentObjective
+        },
+        {
+          path: 'students/:id/programs/:programId/targets/add',
+          name: 'StudentTargetAdd',
+          component: StudentTargets,
+          props: {
+            create: true
+          }
+        },
+        {
+          path: 'students/:id/:catchall',
+          redirect: { name: 'Student' }
         }
       ]
     }

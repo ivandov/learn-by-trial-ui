@@ -34,7 +34,8 @@
 
       </div>
       <footer class="card-footer">
-        <a class="card-footer-item" @click="addObjective">Add</a>
+        <a class="card-footer-item" @click="addObjective" v-if="create">Add</a>
+        <a class="card-footer-item" @click="editObjective" v-else>Edit</a>
       </footer>
     </div>
   </div>
@@ -43,7 +44,8 @@
 <script>
 export default {
   name: 'StudentObjectiveAdd',
-  components: {
+  props: {
+    create: Boolean
   },
   data () {
     return {
@@ -56,10 +58,31 @@ export default {
       }
     }
   },
+  mounted () {
+    if (!this.create) this.getObjective(this.$route.params.objective_id)
+  },
   methods: {
     async addObjective () {
       try {
         let res = await this.$http.post('/objectives', this.objective)
+
+        // Assuming HTTP 2** code
+        this.$router.push({name: 'Student', params: { id: this.$route.params.id }})
+        this.$emit('notification', {
+          msg: 'Supplementary Objective ' + res.data.label + ' has been added successfully with id: ' + res.data.id,
+          styleClass: 'is-success'
+        })
+      }
+      catch (error) {
+        this.$emit('notification', {
+          msg: error.response.data.error.message,
+          styleClass: 'is-warning'
+        })
+      }
+    },
+    async getObjective (id) {
+      try {
+        let res = await this.$http.get('/objectives', id)
 
         // Assuming HTTP 2** code
         this.$router.push({name: 'Student', params: { id: this.$route.params.id }})

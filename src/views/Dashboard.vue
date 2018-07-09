@@ -43,6 +43,11 @@ export default {
   mounted () {
     this.createBreadcrumbs()
   },
+  watch: {
+    '$route' (to, from) {
+      this.createBreadcrumbs()
+    }
+  },
   methods: {
     handleNotification (notification) {
       // alert('Received emitted alert')
@@ -51,21 +56,17 @@ export default {
       this.notification.message = notification.msg
     },
     createBreadcrumbs () {
+      this.breadcrumbs = []
       let paths = this.$route.path.split('/')
       paths.shift()
       let fullpath = ''
       paths.forEach((path) => {
-        console.log(path)
         let p = {}
         p.name = path
         fullpath += '/' + path
         p.path = fullpath
-
-        console.log(p)
-
         this.breadcrumbs.push(p)
       })
-      console.log(this.breadcrumbs)
     }
   }
 }
@@ -76,9 +77,7 @@ export default {
   margin-bottom: 40px;
 }
 
-@media screen and (max-width: 768px) {
-  #dashboard-content {
-     padding: 0px 10px;
-  }
+#dashboard-content {
+    padding: 0px 10px;
 }
 </style>
