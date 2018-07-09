@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title">Supplementary Objectives</p>
       <a class="card-header-icon">
-        <router-link :to="{name: 'StudentObjective'}" class="button is-pulled-right is-info is-outlined">Add Objective</router-link>
+        <router-link :to="{name: 'StudentObjectiveAdd'}" class="button is-pulled-right is-info is-outlined">Add Objective</router-link>
       </a>
     </header>
     <div class="card-content">
