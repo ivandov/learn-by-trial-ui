@@ -30,6 +30,11 @@ html{
   background-color: #E3F3F0;
 }
 
+.card-header {
+  background-color: #FAFAFA;
+  color: white;
+} 
+
 #app {
   margin-bottom: 10px;
 }

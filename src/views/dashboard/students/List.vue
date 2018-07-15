@@ -37,7 +37,8 @@
                 </b-table-column>
 
                 <b-table-column field="" label="" v-if="appointments">
-                  <button class="button is-fullwidth is-success" @click="newAppointment" >Start Appointment</button>
+                  <!-- <router-link :to="{name: 'AppointmentNew', params: { id: props.row.id}}" class="button is-fullwidth is-success">Start Appointment</router-link> -->
+                  <button class="button is-fullwidth is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
                 </b-table-column>
             </template>
 
@@ -92,6 +93,25 @@ export default {
       let uri = process.env.API_URL + '/students'
       let res = await this.$http.get(uri)
       this.students = res.data
+    },
+
+    async createAppointment (studentId) {
+      let uri = process.env.API_URL + '/appointments/'
+
+      let appointment = {
+        date: Date.now(),
+        studentId: studentId
+      }
+
+      let appRes = await this.$http.post(uri, appointment)
+
+      this.$router.push({
+        name: 'AppointmentDash',
+        params: {
+          id: appRes.data.studentId.toString(),
+          appointmentId: appRes.data.id
+        }
+      })
     }
   }
 }

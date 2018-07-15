@@ -16,6 +16,11 @@ import StudentProgram from '@/views/dashboard/students/Program'
 import StudentObjective from '@/views/dashboard/students/Objective'
 import StudentTargets from '@/views/dashboard/students/Targets'
 
+// Dashboard -> Appointments
+import AppointmentDash from '@/views/dashboard/appointments/AppointmentDash'
+import AppointmentHome from '@/views/dashboard/appointments/AppointmentHome'
+import SessionDash from '@/views/dashboard/appointments/SessionDash'
+
 Vue.use(Router)
 
 export default new Router({
@@ -47,6 +52,23 @@ export default new Router({
           props: {
             appointments: true
           }
+        },
+        {
+          path: 'students/:id/appointments',
+          name: 'AppointmentDash',
+          component: AppointmentDash,
+          children: [
+            {
+              path: ':appointmentId',
+              name: 'AppointmentHome',
+              component: AppointmentHome
+            },
+            {
+              path: ':appointmentId/sessions/:sessionId',
+              name: 'SessionDash',
+              component: SessionDash
+            }
+          ]
         },
         {
           path: 'students',

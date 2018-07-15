@@ -1,19 +1,13 @@
 <template>
-  <b-collapse class="card">
+  <b-collapse class="card" :open="open">
     <div slot="trigger" slot-scope="props" class="card-header">
       <p class="card-header-title">
-        Student Profile
+        {{title}}
       </p>
       <a class="card-header-icon">
-        <b-icon
-            :icon="props.open ? 'menu-down' : 'menu-up'">
-        </b-icon>
+        <b-icon :icon="props.open ? 'menu-down' : 'menu-up'"></b-icon>
       </a>
     </div>
-    <!-- <header class="card-header">
-      <p class="card-header-title title">Student Profile</p>
-    </header> -->
-    <!-- <p class="title">Student Profile</p> -->
     <div class="card-content">
       <table class="table is-fullwidth is-hoverable">
         <tbody>
@@ -49,13 +43,19 @@ export default {
   name: 'Student',
   props: {
     id: String,
-    showButtons: Boolean,
-    open: Boolean
+    showButtons: Boolean
   },
   data () {
     return {
-      student: {}
+      open: true,
+      title: 'Student Profile',
+      student: {
+        birthdate: Date.now() // default to remove VueMoment warning
+      }
     }
+  },
+  created () {
+    this.toggleCollapse()
   },
   mounted () {
     this.getStudentProfile(this.id)
@@ -67,7 +67,9 @@ export default {
       try {
         let resp = await this.$http.get(uri)
         this.student = resp.data
-        console.log(resp)
+
+        let appostrophe = this.student.name.endsWith('s') ? '\'' : '\'s'
+        this.title = this.student.name + appostrophe + ' Profile'
       }
       catch (e) {
         // alert(e)
@@ -92,6 +94,12 @@ export default {
         position: 'is-bottom',
         type: 'is-danger'
       })
+    },
+    toggleCollapse () {
+      console.log(screen)
+      if (screen.height <= 768) {
+        this.open = false
+      }
     }
   }
 }

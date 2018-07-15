@@ -9,7 +9,7 @@
           <p class="title">Appointments</p>
         </div>
         <footer class="card-footer">
-          <a class="card-footer-item" href="/dashboard/appointments">Start New Appointment</a>
+          <a class="card-footer-item" href="/dashboard/appointments">New Appointment</a>
         </footer>
       </div>
     </div>

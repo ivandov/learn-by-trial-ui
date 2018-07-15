@@ -5,7 +5,7 @@
       <div class="container">
         <nav class="breadcrumb is-hidden-mobile" aria-label="breadcrumbs">
           <ul>
-            <li v-for="(crumb, index) in breadcrumbs" :key="crumb.name" v-bind:class="{'is-active' : index === (breadcrumbs.length-1)}" >
+            <li v-for="(crumb, index) in breadcrumbs" :key="index" v-bind:class="{'is-active' : index === (breadcrumbs.length-1)}" >
               <a :href="crumb.path" >{{ crumb.name | capitalize }}</a>
             </li>
           </ul> 
