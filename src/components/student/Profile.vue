@@ -43,7 +43,11 @@ export default {
   name: 'Student',
   props: {
     id: String,
-    showButtons: Boolean
+    showButtons: Boolean,
+    forceOpen: {
+      type: Boolean,
+      default: false
+    }
   },
   data () {
     return {
@@ -96,8 +100,8 @@ export default {
       })
     },
     toggleCollapse () {
-      console.log(screen)
-      if (screen.height <= 768) {
+      // console.log(screen)
+      if (screen.height <= 768 && !this.forceOpen) {
         this.open = false
       }
     }

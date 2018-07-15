@@ -9,8 +9,9 @@ import Dashboard from '@/views/Dashboard'
 import DashHome from '@/views/dashboard/DashHome'
 
 // Dashboard -> Students
-import StudentsList from '@/views/dashboard/students/StudentsList'
+import StudentList from '@/views/dashboard/students/List'
 import StudentDash from '@/views/dashboard/students/StudentDash'
+import StudentAdd from '@/views/dashboard/students/Add'
 import StudentProgram from '@/views/dashboard/students/Program'
 import StudentObjective from '@/views/dashboard/students/Objective'
 import StudentTargets from '@/views/dashboard/students/Targets'
@@ -45,6 +46,14 @@ export default new Router({
           component: DashHome
         },
         {
+          path: 'appointments',
+          name: 'Appointments',
+          component: StudentList,
+          props: {
+            appointments: true
+          }
+        },
+        {
           path: 'students/:id/appointments',
           name: 'AppointmentDash',
           component: AppointmentDash,
@@ -64,10 +73,12 @@ export default new Router({
         {
           path: 'students',
           name: 'Students',
-          component: StudentsList,
-          props: {
-            appointments: true
-          }
+          component: StudentList
+        },
+        {
+          path: 'students/add',
+          name: 'StudentAdd',
+          component: StudentAdd
         },
         {
           path: 'students/:id',

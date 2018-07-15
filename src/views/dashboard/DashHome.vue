@@ -1,36 +1,43 @@
 <template>
-  <div class="columns is-centered">
-    <div class="column is-4">
-      <card title="Students" view-link="/dashboard/students" add-link="/dashboard/students/add" ></card>
-    </div>
-    <div class="column is-4">
-      <div class="card has-text-centered">
+  <div class="columns is-multiline is-mobile is-centered">
+    <div class="column is-4-tablet is-half-mobile colored-cards">
+      <div class="card has-text-centered colored-card" @click="goToStudents">
         <div class="card-content">
-          <p class="title">Appointments</p>
+          <p class="is-size-3-tablet is-size-4-mobile">Students</p>
         </div>
-        <footer class="card-footer">
-          <a class="card-footer-item" href="/dashboard/appointments">New Appointment</a>
-        </footer>
+      </div>
+    </div>
+    <div class="column is-4-tablet is-half-mobile colored-cards">
+      <div class="card has-text-centered colored-card" @click="goToReports">
+        <div class="card-content">
+          <p class="is-size-3-tablet is-size-4-mobile">Reports</p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Card from '@/components/Card'
+// import Card from '@/components/Card'
 
 export default {
   name: 'DashHome',
-  components: {
-    Card
-  },
   data () {
     return {
+    }
+  },
+  methods: {
+    goToStudents () {
+      this.$router.push({name: 'Students'})
+    },
+    goToReports () {
+      this.$toast.open({
+        duration: 3000,
+        message: `Reports not implemented yet!`,
+        position: 'is-bottom',
+        type: 'is-danger'
+      })
     }
   }
 }
 </script>
-
-<style>
-
-</style>

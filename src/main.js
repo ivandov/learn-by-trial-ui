@@ -10,7 +10,9 @@ import 'mdi/css/materialdesignicons.css'
 
 Vue.use(Buefy)
 Vue.use(VueMoment)
-Vue.prototype.$http = Axios.create({baseURL: process.env.API_URL})
+
+let baseUrl = process.env.API_URL ? process.env.API_URL : location.protocol + '//' + location.hostname + ':3000/api'
+Vue.prototype.$http = Axios.create({baseURL: baseUrl})
 
 Vue.filter('capitalize', function (value) {
   if (!value) return ''

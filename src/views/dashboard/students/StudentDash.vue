@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <student-profile :id="this.$route.params.id" show-buttons></student-profile>
+      <student-profile :id="this.$route.params.id" show-buttons force-open></student-profile>
     </div>
     <div class="column is-8">
       <student-skill-programs/>

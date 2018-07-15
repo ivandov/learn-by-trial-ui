@@ -4,18 +4,20 @@
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">All Students</p>
+          <div class="card-header-icon">
+            <button class="button is-info" @click="showAddStudentModal">Add Student</button>
+          </div>
         </header>
         <div class="card-content">
           <b-field>
-            <b-input placeholder="Search..."
-                type="search"
+            <b-input placeholder="Search by name... "
+                type="is-info"
                 icon="magnify"
                 v-model="search_query.name">
             </b-input>
           </b-field>
           <br>
-
-          <b-table :data="filter">
+          <b-table :data="filter" class="action-col" hoverable striped>
             <template slot-scope="props">
                 <b-table-column field="name" label="Name">
                   <router-link :to="{name: 'Student', params: { id: props.row.id}}">{{ props.row.name }}</router-link>
@@ -36,24 +38,20 @@
                   {{ props.row.race }}
                 </b-table-column>
 
-                <b-table-column field="" label="" v-if="appointments">
-                  <!-- <router-link :to="{name: 'AppointmentNew', params: { id: props.row.id}}" class="button is-fullwidth is-success">Start Appointment</router-link> -->
-                  <button class="button is-fullwidth is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
+                <b-table-column field="" label="" v-if="appointments" class="is-fullwidth">
+                  <button class="button is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
                 </b-table-column>
             </template>
 
             <template slot="empty">
-                <section class="section">
-                    <div class="content has-text-grey has-text-centered">
-                        <p>
-                            <b-icon
-                                icon="emoticon-sad"
-                                size="is-large">
-                            </b-icon>
-                        </p>
-                        <p>Nothing here.</p>
-                    </div>
-                </section>
+              <section class="section">
+                <div class="content has-text-grey has-text-centered">
+                  <p>
+                    <b-icon icon="emoticon-sad" size="is-large"></b-icon>
+                  </p>
+                  <p>Nothing here.</p>
+                </div>
+              </section>
             </template>
           </b-table>
         </div>
@@ -63,9 +61,14 @@
 </template>
 
 <script>
+import AddStudentModal from '@/components/modals/AddStudentModal.vue'
+
 export default {
   props: {
     appointments: Boolean
+  },
+  components: {
+    AddStudentModal
   },
   data () {
     return {
@@ -90,13 +93,12 @@ export default {
   },
   methods: {
     async getStudents () {
-      let uri = process.env.API_URL + '/students'
-      let res = await this.$http.get(uri)
+      let res = await this.$http.get('/students')
       this.students = res.data
     },
 
     async createAppointment (studentId) {
-      let uri = process.env.API_URL + '/appointments/'
+      let uri = '/appointments/'
 
       let appointment = {
         date: Date.now(),
@@ -112,16 +114,24 @@ export default {
           appointmentId: appRes.data.id
         }
       })
+    },
+
+    showAddStudentModal () {
+      this.$modal.open({
+        parent: this,
+        component: AddStudentModal,
+        hasModalCard: true
+      })
     }
   }
 }
 </script>
 
-<style>
-td:last-child::before{
+<style scoped>
+.action-col td:last-child::before{
   content: none !important;
 }
-td:last-child span {
-  width: 100% !important;
+.action-col td:last-child :first-child{
+  width:100% !important;
 }
 </style>

@@ -6,8 +6,8 @@
       </header>
       <div class="card-content">
         <div class="columns is-multiline is-mobile is-centered">
-          <div class="column is-4-tablet is-half-mobile program-card-col" v-for="program in programs" :key="program.id">
-            <div class="card has-text-centered program-card" @click="selectTarget(program)">
+          <div class="column is-4-tablet is-half-mobile colored-cards" v-for="program in programs" :key="program.id">
+            <div class="card has-text-centered colored-card" @click="selectTarget(program)">
               <div class="card-content">
                 <p class="is-size-3-tablet is-size-4-mobile">{{program.label}}</p>
               </div>
@@ -16,9 +16,6 @@
         </div>
       </div>
     </div>
-
-    <!-- <targets-modal :program-id="modalProgramId"/> -->
-
 
     <b-modal :active.sync="isTargetModalActive">
     <div class="card">
@@ -127,47 +124,7 @@ export default {
 }
 </script>
 
-<style scoped>
-.program-card .card-content{
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.program-card {
-  cursor: pointer;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  /* box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1); */
-}
-
-.program-card-col:nth-of-type(5n+1) .card-content{
-  background-color: #96D6F2;
-}
-.program-card-col:nth-of-type(5n+2) .card-content{
-  background-color: #FDEF8D;
-}
-.program-card-col:nth-of-type(5n+3) .card-content{
-  background-color: #BFDA83;
-}
-.program-card-col:nth-of-type(5n+4) .card-content{
-  background-color: #E97758;
-}
-.program-card-col:nth-of-type(5n+5) .card-content{
-  background-color: #FBA971;
-}
-
-@media only screen and (max-width: 600px) {
-  .program-card .card-content{
-    min-height: 150px;
-  }
-}
-
-@media only screen and (min-width: 600px) {
-  .program-card .card-content{
-    min-height: 200px;
-  }
-}
-
+<style>
 .collapse.card {
   margin-bottom: 5px;
 }

@@ -1,0 +1,69 @@
+/*
+$orange:       #eea170;
+$yellow:       #FFCE67;
+$green:        #56cc90;
+$cyan:         #6CC3D5;
+$blue:         #6D90D6;
+$red:          #e07f7d;
+$turquoise:    #6abfb0;
+*/
+
+html{
+  background-color: #E3F3F0;
+}
+
+#app {
+  margin-bottom: 10px;
+}
+
+.card-header {
+  background-color: #FAFAFA;
+  color: white;
+} 
+
+.card-footer-item {
+  background-color: $primary;
+  color: $white;
+}
+
+
+/****************************
+  COLORED CARDS
+****************************/
+.colored-card .card-content{
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.colored-card {
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  /* box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1); */
+}
+.colored-cards:nth-of-type(5n+1) .card-content{
+  background-color: #96D6F2;
+  // background-color: $blue;
+}
+.colored-cards:nth-of-type(5n+2) .card-content{
+  background-color: #FDEF8D;
+  // background-color: $turquoise;
+}
+.colored-cards:nth-of-type(5n+3) .card-content{
+  background-color: #BFDA83;
+}
+.colored-cards:nth-of-type(5n+4) .card-content{
+  background-color: #E97758;
+}
+.colored-cards:nth-of-type(5n+5) .card-content{
+  background-color: #FBA971;
+}
+@media only screen and (max-width: 600px) {
+  .colored-card .card-content{
+    min-height: 150px;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .colored-card .card-content{
+    min-height: 200px;
+  }
+}

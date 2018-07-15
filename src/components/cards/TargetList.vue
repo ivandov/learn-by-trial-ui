@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title">Program Targets</p>
       <a class="card-header-icon" v-if="showAddButton">
-        <router-link :to="{name: 'StudentTargetAdd'}" class="button is-info is-outlined">Add Target</router-link>
+        <router-link :to="{name: 'StudentTargetAdd'}" class="button is-info">Add Target</router-link>
       </a>
     </header>
     <div class="card-content">
@@ -18,7 +18,8 @@
 
         <template slot-scope="props">
           <b-table-column field="id" label="Label">
-            <router-link :to="{name: 'StudentProgramEdit', params: {id: $route.params.id, programId: props.row.id}}">{{props.row.label}}</router-link>
+            <!-- <router-link :to="{name: 'StudentProgramEdit', params: {id: $route.params.id, programId: props.row.id}}">{{props.row.label}}</router-link> -->
+            {{props.row.label}}
           </b-table-column>
           <b-table-column field="startDate" label="Start Date" sortable>
               {{ new Date(props.row.startDate).toLocaleDateString() }}

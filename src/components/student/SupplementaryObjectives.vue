@@ -3,26 +3,28 @@
     <header class="card-header">
       <p class="card-header-title">Supplementary Objectives</p>
       <a class="card-header-icon">
-        <router-link :to="{name: 'StudentObjectiveAdd'}" class="button is-pulled-right is-info is-outlined">Add Objective</router-link>
+        <router-link :to="{name: 'StudentObjectiveAdd'}" class="button is-pulled-right is-info">Add Objective</router-link>
       </a>
     </header>
     <div class="card-content">
-      <table class="table is-fullwidth is-hoverable">
-        <thead>
-          <tr>
-            <th>Label</th>
-            <th>Type</th>
-            <th>Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="objective in objectives" :key="objective.id">
-            <td>{{ objective.label }}</td>
-            <td>{{ objective.type }}</td>
-            <td>{{ objective.description }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <b-table :data="objectives">
+        <template slot-scope="props">
+          <b-table-column field="label" label="Label">
+            {{ props.row.label }}
+          </b-table-column>
+
+          <b-table-column field="description" label="Description">
+            {{ props.row.description }}
+          </b-table-column>
+        </template>
+
+        <template slot="empty">
+          <div class="content has-text-grey has-text-centered">
+            <b-icon icon="emoticon-sad" size="is-medium"></b-icon>
+            <p>Nothing here.</p>
+          </div>
+        </template>
+      </b-table>
     </div>
   </div>
 </template>
@@ -44,7 +46,6 @@ export default {
       try {
         let resp = await this.$http.get(uri)
         this.objectives = resp.data
-        console.log(resp)
       }
       catch (e) {
         // alert(e)

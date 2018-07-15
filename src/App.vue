@@ -23,20 +23,5 @@ export default {
   @import "~bulma";
   @import "~buefy/src/scss/buefy";
   @import "~bulmaswatch/minty/_overrides";
+  @import "@/assets/styles.scss";
 </style>
-
-<style>
-html{
-  background-color: #E3F3F0;
-}
-
-.card-header {
-  background-color: #FAFAFA;
-  color: white;
-} 
-
-#app {
-  margin-bottom: 10px;
-}
-</style>
-

@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title">Skill Programs</p>
       <a class="card-header-icon">
-        <router-link :to="{name: 'StudentProgramAdd'}" class="button is-info is-outlined">Add Skill Program</router-link>
+        <router-link :to="{name: 'StudentProgramAdd'}" class="button is-info">Add Skill Program</router-link>
       </a>
     </header>
     <div class="card-content">
@@ -54,7 +54,6 @@ export default {
       try {
         let resp = await this.$http.get(uri)
         this.programs = resp.data
-        console.log(resp)
       }
       catch (e) {
         // alert(e)

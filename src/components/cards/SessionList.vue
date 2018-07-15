@@ -5,7 +5,7 @@
       <p class="card-header-title">Sessions</p>
       <div class="card-header-icon">
         <!-- <button class="button is-info is-outlined" @click="isSessionModalActive = true">Add Session</button> -->
-        <button class="button is-info is-outlined" @click="createSession">Add Session</button>
+        <button class="button is-info" @click="createSession">Add Session</button>
       </div>
     </header>
     <div class="card-content">
