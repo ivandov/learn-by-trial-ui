@@ -1,9 +1,9 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <student-profile :id="this.$route.params.id" :open="false"></student-profile>
+      <student-profile-card :id="this.$route.params.id" :open="false" />
       <br>
-      <program-card :id="this.$route.params.programId"/>
+      <!-- <program-card :id="this.$route.params.programId"/> -->
     </div>
     <div class="column">
       <target-list/>
@@ -15,8 +15,7 @@
 </template>
 
 <script>
-import StudentProfile from '@/components/student/Profile'
-import ProgramCard from '@/components/cards/SkillProgramCard'
+import StudentProfileCard from '@/components/cards/StudentProfileCard'
 import TargetList from '@/components/cards/TargetList'
 import TargetForm from '@/components/forms/TargetForm'
 
@@ -25,8 +24,7 @@ export default {
     create: Boolean
   },
   components: {
-    StudentProfile,
-    ProgramCard,
+    StudentProfileCard,
     TargetList,
     TargetForm
   },

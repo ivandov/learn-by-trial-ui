@@ -1,27 +1,21 @@
 <template>
   <div class="columns">
     <div class="column is-4">
-      <student-profile :id="this.$route.params.id" show-buttons force-open></student-profile>
+      <student-profile-card :id="this.$route.params.id" show-buttons force-open/>
     </div>
     <div class="column is-8">
-      <student-skill-programs/>
-      <br>
-      <student-supplementary-objectives/>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import StudentProfile from '@/components/student/Profile'
-import StudentSkillPrograms from '@/components/student/SkillPrograms'
-import StudentSupplementaryObjectives from '@/components/student/SupplementaryObjectives'
+import StudentProfileCard from '@/components/cards/StudentProfileCard'
 
 export default {
   name: 'Student',
   components: {
-    StudentProfile,
-    StudentSkillPrograms,
-    StudentSupplementaryObjectives
+    StudentProfileCard
   },
   data () {
     return {}

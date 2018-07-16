@@ -3,7 +3,7 @@
     <header class="card-header">
       <p class="card-header-title">Supplementary Objectives</p>
       <a class="card-header-icon">
-        <router-link :to="{name: 'StudentObjectiveAdd'}" class="button is-pulled-right is-info">Add Objective</router-link>
+        <button class="button is-info" @click="showObjectiveModal">Add Objective</button>
       </a>
     </header>
     <div class="card-content">
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import ObjectiveForm from '@/components/forms/ObjectiveForm.vue'
+
 export default {
   data () {
     return {
@@ -38,6 +40,10 @@ export default {
   },
   mounted () {
     this.getStudentObjectives(this.$route.params.id)
+
+    this.$root.$on('objective', objective => {
+      this.objectives.push(objective)
+    })
   },
   methods: {
     async getStudentObjectives (id) {
@@ -49,16 +55,21 @@ export default {
       }
       catch (e) {
         // alert(e)
-        this.$emit('notification', {
-          msg: e.response.data.error.message,
-          styleClass: 'is-warning'
+        this.$toast.open({
+          duration: 3000,
+          message: e.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-danger'
         })
       }
+    },
+    showObjectiveModal () {
+      this.$modal.open({
+        parent: this,
+        component: ObjectiveForm,
+        hasModalCard: true
+      })
     }
   }
 }
 </script>
-
-<style>
-
-</style>

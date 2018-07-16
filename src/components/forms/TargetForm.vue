@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">{{title}}</p>
+  <div class="card modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{title}}</p>
     </header>
-    <div class="card-content">
+    <div class="modal-card-body">
       <div class="field">
         <label class="label">Label</label>
         <div class="control">
@@ -43,18 +43,15 @@
         </div>
       </div>
     </div>
-    <footer class="card-footer">
-      <a class="card-footer-item" @click="createTarget" v-if="create">Add</a>
-      <a class="card-footer-item" @click="updateTarget" v-else>Edit</a>
+    <footer>
+      <a class="card-footer-item" @click="createTarget">Add</a>
+      <!-- <a class="card-footer-item" @click="updateTarget" v-else>Edit</a> -->
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    create: Boolean
-  },
   data () {
     return {
       target: {
@@ -67,24 +64,26 @@ export default {
   },
   mounted () {
     console.log('form' + this.create)
-    if (!this.create) {
-      this.readTarget()
-    }
   },
   methods: {
     async createTarget () {
       try {
         let res = await this.$http.post('/targets', this.target)
-        this.$emit('notification', {
-          msg: 'Skill Program ' + res.data.label + ' has been added successfully with id: ' + res.data.id,
-          styleClass: 'is-success'
+        this.$root.$emit('target', res.data)
+        this.$emit('close')
+        this.$toast.open({
+          duration: 5000,
+          message: 'Target ' + res.data.label + ' has been added successfully',
+          position: 'is-bottom',
+          type: 'is-success'
         })
-        location.reload()
       }
       catch (error) {
-        this.$emit('notification', {
-          msg: error.response.data.error.message,
-          styleClass: 'is-warning'
+        this.$toast.open({
+          duration: 5000,
+          message: error.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-warning'
         })
       }
     },

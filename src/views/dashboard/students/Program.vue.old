@@ -1,0 +1,32 @@
+<template>
+  <div>
+    <student-programs-card />
+    <br>
+    <student-program-targets show-add-button/>
+  </div>
+</template>
+
+<script>
+import StudentProgramsCard from '@/components/cards/StudentProgramsCard'
+import StudentProgramTargets from '@/components/cards/StudentProgramTargets'
+
+export default {
+  name: 'StudentProgramAdd',
+  props: {
+    create: Boolean
+  },
+  components: {
+    StudentProgramsCard,
+    StudentProgramTargets
+  },
+  data () {
+    return {}
+  }
+}
+</script>
+
+<style>
+#addTarget {
+  display: flex;
+}
+</style>

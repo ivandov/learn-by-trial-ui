@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">Add New Supplementary Objective</p>
+  <div class="card modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add Supplementary Objective</p>
     </header>
-    <div class="card-content">
+    <div class="modal-card-body">
       <div class="field">
         <label class="label">Label</label>
         <div class="control">
@@ -19,68 +19,51 @@
       </div>
 
     </div>
-    <footer class="card-footer">
-      <a class="card-footer-item" @click="addObjective" v-if="create">Add</a>
-      <a class="card-footer-item" @click="editObjective" v-else>Edit</a>
+    <footer>
+      <a class="card-footer-item" @click="addObjective">Add</a>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'StudentObjectiveAdd',
-  props: {
-    create: Boolean
-  },
   data () {
     return {
-      types: [
-        'Checkbox',
-        'Options'
-      ],
       objective: {
         studentId: this.$route.params.id
       }
     }
   },
-  mounted () {
-    if (!this.create) this.getObjective(this.$route.params.objective_id)
-  },
   methods: {
     async addObjective () {
       try {
         let res = await this.$http.post('/objectives', this.objective)
-
-        // Assuming HTTP 2** code
-        this.$router.push({name: 'Student', params: { id: this.$route.params.id }})
-        this.$emit('notification', {
-          msg: 'Supplementary Objective ' + res.data.label + ' has been added successfully with id: ' + res.data.id,
-          styleClass: 'is-success'
+        this.$root.$emit('objective', res.data)
+        this.$emit('close')
+        this.$toast.open({
+          duration: 5000,
+          message: 'Supplementary Objective ' + res.data.label + ' has been added successfully',
+          position: 'is-bottom',
+          type: 'is-success'
         })
       }
       catch (error) {
-        this.$emit('notification', {
-          msg: error.response.data.error.message,
-          styleClass: 'is-warning'
+        this.$toast.open({
+          duration: 5000,
+          message: error.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-warning'
         })
       }
     },
     async getObjective (id) {
       try {
         let res = await this.$http.get('/objectives', id)
-
+        console.log(res)
         // Assuming HTTP 2** code
-        this.$router.push({name: 'Student', params: { id: this.$route.params.id }})
-        this.$emit('notification', {
-          msg: 'Supplementary Objective ' + res.data.label + ' has been added successfully with id: ' + res.data.id,
-          styleClass: 'is-success'
-        })
+        // this.$router.push({name: 'Student', params: { id: this.$route.params.id }})
       }
       catch (error) {
-        this.$emit('notification', {
-          msg: error.response.data.error.message,
-          styleClass: 'is-warning'
-        })
       }
     }
   }

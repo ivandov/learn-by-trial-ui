@@ -2,7 +2,7 @@
   <section>
     <div class="columns">
       <div class="column is-4">
-        <student-profile :id="this.$route.params.id"></student-profile>
+        <student-profile-card :id="this.$route.params.id"></student-profile-card>
         <br>
         <timers-and-counters />
       </div>
@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import StudentProfile from '@/components/student/Profile'
+import StudentProfileCard from '@/components/cards/StudentProfileCard'
 import TimersAndCounters from '@/components/cards/TimersAndCounters'
 
 export default {
   components: {
-    StudentProfile,
+    StudentProfileCard,
     TimersAndCounters
   },
   data () {

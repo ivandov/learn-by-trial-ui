@@ -9,12 +9,8 @@
       </a>
     </div>
     <div class="card-content">
-      <table class="table is-fullwidth is-hoverable">
+      <table class="table is-fullwidth is-hoverable is-narrow">
         <tbody>
-          <tr>
-            <th>Name</th>
-            <td>{{ student.name }}</td>
-          </tr>
           <tr>
             <th>Birthdate</th>
             <td>{{ student.birthdate | moment("MM/DD/YYYY") }}</td>
@@ -31,8 +27,10 @@
       </table>
 
       <footer v-if="this.showButtons">
-        <button class="button is-info is-fullwidth" @click="appointments">View Appointments</button>
-        <button class="button is-success is-fullwidth" @click="caregiver">Add Caregiver</button>
+        <button class="button is-info is-fullwidth" @click="appointments">Appointments</button>
+        <button class="button is-warning is-fullwidth" @click="programs">Skill Programs & Targets</button>
+        <button class="button is-danger is-fullwidth" @click="objectives">Supplementary Objectives</button>
+        <button class="button is-success is-fullwidth" @click="caregiver">Caregivers</button>
       </footer>
     </div>
   </b-collapse>
@@ -84,17 +82,18 @@ export default {
       }
     },
     appointments () {
-      this.$toast.open({
-        duration: 3000,
-        message: `Appointments not implemented yet!`,
-        position: 'is-bottom',
-        type: 'is-danger'
-      })
+      this.$root.$emit('showAppointments')
+    },
+    programs () {
+      this.$root.$emit('showPrograms')
+    },
+    objectives () {
+      this.$root.$emit('showObjectives')
     },
     caregiver () {
       this.$toast.open({
         duration: 3000,
-        message: `Caregiver not implemented yet!`,
+        message: `Caregivers not implemented yet!`,
         position: 'is-bottom',
         type: 'is-danger'
       })

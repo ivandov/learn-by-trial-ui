@@ -3,14 +3,16 @@
     <header class="card-header">
       <p class="card-header-title">Skill Programs</p>
       <a class="card-header-icon">
-        <router-link :to="{name: 'StudentProgramAdd'}" class="button is-info">Add Skill Program</router-link>
+        <!-- <router-link :to="{name: 'StudentProgramAdd'}" class="button is-info">Add Skill Program</router-link> -->
+        <button class="button is-info" @click="showAddProgramModal">Add Skill Program</button>
       </a>
     </header>
     <div class="card-content">
-      <b-table :data="programs">
+      <b-table :data="programs" hoverable striped :selected.sync="selected">
         <template slot-scope="props">
-          <b-table-column field="id" label="Label">
-            <router-link :to="{name: 'StudentProgramEdit', params: {id: $route.params.id, programId: props.row.id}}">{{props.row.label}}</router-link>
+          <b-table-column field="id" label="Program Label">
+            <!-- <router-link :to="{name: 'StudentProgram', params: {id: $route.params.id, programId: props.row.id}}">{{props.row.label}}</router-link> -->
+            <a @click="selected = props.row">{{props.row.label}}</a>
           </b-table-column>
 
           <b-table-column field="objective" label="Objective">
@@ -32,20 +34,32 @@
             <p>Nothing here.</p>
           </div>
         </template>
+
+        <!-- <template slot="detail" slot-scope="props">
+          <p>{{props.row.description}}</p>
+        </template> -->
       </b-table>
     </div>
   </div>
 </template>
 
 <script>
+import SkillProgramForm from '@/components/forms/SkillProgramForm.vue'
+
 export default {
   data () {
     return {
-      programs: []
+      programs: [],
+      selected: {}
     }
   },
   mounted () {
     this.getStudentPrograms(this.$route.params.id)
+
+    this.$root.$on('program', program => {
+      console.log(program)
+      this.programs.push(program)
+    })
   },
   methods: {
     async getStudentPrograms (id) {
@@ -62,6 +76,21 @@ export default {
           styleClass: 'is-warning'
         })
       }
+    },
+
+    showAddProgramModal () {
+      this.$modal.open({
+        parent: this,
+        component: SkillProgramForm,
+        hasModalCard: true
+      })
+    }
+  },
+  watch: {
+    selected: function (selectedProgram) {
+      this.$root.$emit('updateTargets', {
+        id: selectedProgram.id
+      })
     }
   }
 }

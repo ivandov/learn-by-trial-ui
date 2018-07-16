@@ -1,0 +1,64 @@
+<template>
+    <section>
+      <b-tabs v-model="activeTab" type="is-boxed" expanded class="tabbed-header">
+        <b-tab-item label="Skill Programs">
+          <student-programs-card/>
+        </b-tab-item>
+        <b-tab-item label="Supplementary Objectives">
+          <student-objectives-card/>
+        </b-tab-item>
+      </b-tabs>
+    </section>
+</template>
+
+<script>
+import StudentProgramsCard from '@/components/cards/StudentProgramsCard'
+import StudentObjectivesCard from '@/components/cards/StudentObjectivesCard'
+import StudentTargetsCard from '@/components/cards/StudentTargetsCard.vue'
+
+export default {
+  components: {
+    StudentProgramsCard,
+    StudentObjectivesCard,
+    StudentTargetsCard
+  },
+  data () {
+    return {
+      activeTab: 0,
+      showBooks: false
+    }
+  }
+}
+</script>
+
+<style>
+/* .tabbed-card .card-content{
+  border-radius: 6px 6px 0 0;
+}
+.tabbed-card ul {
+  background-color: #FAFAFA;
+  /* margin-top: -48px; 
+}
+.tabbed-card li a{
+  /* background-color: white; 
+  /* margin-top: -48px; 
+} */
+.tab-content {
+  background-color: white;
+  /* border-left-color: rgb(219, 219, 219) !important;
+  border-left: 1px; */
+  /* border-left: 1px solid #dbdbdb; */
+
+  border-width: 0 1px 1px 1px;
+  border-style: solid;
+  border-color: #dbdbdb;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.tabbed-header {
+  background-color: #fafafa;
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+</style>

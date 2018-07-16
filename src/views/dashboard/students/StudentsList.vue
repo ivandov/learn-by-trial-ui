@@ -19,28 +19,28 @@
           <br>
           <b-table :data="filter" class="action-col" hoverable striped>
             <template slot-scope="props">
-                <b-table-column field="name" label="Name">
-                  <router-link :to="{name: 'Student', params: { id: props.row.id}}">{{ props.row.name }}</router-link>
-                </b-table-column>
+              <b-table-column field="name" label="Name">
+                <router-link :to="{name: 'Student', params: { id: props.row.id}}">{{ props.row.name }}</router-link>
+              </b-table-column>
 
-                <b-table-column field="date" label="Birthdate">
-                  {{ new Date(props.row.birthdate).toLocaleDateString() }}
-                </b-table-column>
+              <b-table-column field="date" label="Birthdate">
+                {{ new Date(props.row.birthdate).toLocaleDateString() }}
+              </b-table-column>
 
-                <b-table-column label="Sex">
-                  <b-icon 
-                    :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
-                  </b-icon>
-                  {{ props.row.sex }}
-                </b-table-column>
+              <b-table-column label="Sex">
+                <b-icon 
+                  :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
+                </b-icon>
+                {{ props.row.sex }}
+              </b-table-column>
 
-                <b-table-column field="race" label="Race">
-                  {{ props.row.race }}
-                </b-table-column>
+              <b-table-column field="race" label="Race">
+                {{ props.row.race }}
+              </b-table-column>
 
-                <b-table-column field="" label="" v-if="appointments" class="is-fullwidth">
-                  <button class="button is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
-                </b-table-column>
+              <b-table-column field="" label="" v-if="appointments" class="is-fullwidth">
+                <button class="button is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
+              </b-table-column>
             </template>
 
             <template slot="empty">
@@ -61,14 +61,11 @@
 </template>
 
 <script>
-import AddStudentModal from '@/components/modals/AddStudentModal.vue'
+import StudentForm from '@/components/forms/StudentForm.vue'
 
 export default {
   props: {
     appointments: Boolean
-  },
-  components: {
-    AddStudentModal
   },
   data () {
     return {
@@ -108,7 +105,7 @@ export default {
       let appRes = await this.$http.post(uri, appointment)
 
       this.$router.push({
-        name: 'AppointmentDash',
+        name: 'AppointmentMain',
         params: {
           id: appRes.data.studentId.toString(),
           appointmentId: appRes.data.id
@@ -119,7 +116,7 @@ export default {
     showAddStudentModal () {
       this.$modal.open({
         parent: this,
-        component: AddStudentModal,
+        component: StudentForm,
         hasModalCard: true
       })
     }

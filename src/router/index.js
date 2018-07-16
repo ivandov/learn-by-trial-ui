@@ -9,15 +9,13 @@ import Dashboard from '@/views/Dashboard'
 import DashHome from '@/views/dashboard/DashHome'
 
 // Dashboard -> Students
-import StudentsList from '@/views/dashboard/students/StudentsList'
+import Students from '@/views/dashboard/students/StudentsList'
 import StudentDash from '@/views/dashboard/students/StudentDash'
-import StudentProgram from '@/views/dashboard/students/Program'
-import StudentObjective from '@/views/dashboard/students/Objective'
-import StudentTargets from '@/views/dashboard/students/Targets'
+import StudentMain from '@/views/dashboard/students/StudentMain'
 
 // Dashboard -> Appointments
 import AppointmentDash from '@/views/dashboard/appointments/AppointmentDash'
-import AppointmentHome from '@/views/dashboard/appointments/AppointmentHome'
+import AppointmentMain from '@/views/dashboard/appointments/AppointmentMain'
 import SessionDash from '@/views/dashboard/appointments/SessionDash'
 
 Vue.use(Router)
@@ -45,26 +43,9 @@ export default new Router({
           component: DashHome
         },
         {
-          path: 'students/:id/appointments',
-          name: 'AppointmentDash',
-          component: AppointmentDash,
-          children: [
-            {
-              path: ':appointmentId',
-              name: 'AppointmentHome',
-              component: AppointmentHome
-            },
-            {
-              path: ':appointmentId/sessions/:sessionId',
-              name: 'SessionDash',
-              component: SessionDash
-            }
-          ]
-        },
-        {
           path: 'students',
           name: 'Students',
-          component: StudentsList,
+          component: Students,
           props: {
             appointments: true
           }
@@ -72,41 +53,31 @@ export default new Router({
         {
           path: 'students/:id',
           name: 'Student',
-          component: StudentDash
+          component: StudentDash,
+          children: [
+            {
+              path: '/',
+              name: 'StudentDashHome',
+              component: StudentMain
+            }
+          ]
         },
         {
-          path: 'students/:id/programs/add',
-          name: 'StudentProgramAdd',
-          component: StudentProgram,
-          props: {
-            create: true
-          }
-        },
-        {
-          path: 'students/:id/programs/:programId',
-          name: 'StudentProgramEdit',
-          component: StudentProgram
-        },
-        {
-          path: 'students/:id/objectives/add',
-          name: 'StudentObjectiveAdd',
-          component: StudentObjective,
-          props: {
-            create: true
-          }
-        },
-        {
-          path: 'students/:id/objectives/:objectiveId',
-          name: 'StudentObjective',
-          component: StudentObjective
-        },
-        {
-          path: 'students/:id/programs/:programId/targets/add',
-          name: 'StudentTargetAdd',
-          component: StudentTargets,
-          props: {
-            create: true
-          }
+          path: 'students/:id/appointments',
+          name: 'AppointmentDash',
+          component: AppointmentDash,
+          children: [
+            {
+              path: ':appointmentId',
+              name: 'AppointmentMain',
+              component: AppointmentMain
+            },
+            {
+              path: ':appointmentId/sessions/:sessionId',
+              name: 'SessionDash',
+              component: SessionDash
+            }
+          ]
         },
         {
           path: 'students/:id/:catchall',
