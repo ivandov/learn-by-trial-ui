@@ -22,10 +22,12 @@
 
 <script>
 import TrialsModal from '@/components/modals/TrialsModal'
+import SessionForm from '@/components/forms/SessionForm'
 import Stopwatch from '@/components/Stopwatch'
 export default {
   components: {
     TrialsModal,
+    SessionForm,
     Stopwatch
   },
   methods: {
@@ -37,7 +39,11 @@ export default {
       })
     },
     completeSession () {
-      console.log('completed session')
+      this.$modal.open({
+        parent: this,
+        component: SessionForm,
+        hasModalCard: true
+      })
     }
   }
 }

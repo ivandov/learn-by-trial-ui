@@ -46,13 +46,19 @@
 
 <script>
 export default {
+  props: {
+    initTrials: {
+      type: Array,
+      default: []
+    }
+  },
   data () {
     return {
-      trials: []
+      trials: this.initTrials
     }
   },
   mounted () {
-    this.getTrials()
+    if (this.trials.length === 0) this.getTrials()
   },
   methods: {
     async getTrials () {
