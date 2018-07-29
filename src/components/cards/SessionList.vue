@@ -18,7 +18,9 @@
 
         <template slot-scope="props">
           <b-table-column field="date" label="Start Time" sortable>
-            {{props.row.date | moment("MM/DD/YYYY hh:mm a")}}
+            <router-link :to="{name: 'SessionPrograms', params: { sessionId: props.row.id}}">
+              {{ props.row.date | moment("MM/DD/YYYY hh:mm a") }}
+            </router-link>
           </b-table-column>
           <b-table-column field="duration" label="Duration (minutes)" sortable>
             {{ calculateDuration(props.row) }}
@@ -125,6 +127,9 @@ export default {
       let duration = new Date(session.endDate) - new Date(session.date)
       let seconds = Math.floor(duration / 1000)
       let minutes = Math.ceil(seconds / 60)
+
+      if (isNaN(minutes)) return 'Uncompleted'
+
       return minutes
     },
 

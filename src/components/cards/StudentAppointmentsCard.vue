@@ -10,7 +10,9 @@
       <b-table :data="appointments">
         <template slot-scope="props">
           <b-table-column field="date" label="Date & Time">
-            {{ props.row.date | moment("MM/DD/YYYY hh:mm a") }}
+            <router-link :to="{name: 'AppointmentMain', params: { appointmentId: props.row.id}}">
+              {{ props.row.date | moment("MM/DD/YYYY hh:mm a") }}
+            </router-link>
           </b-table-column>
 
           <b-table-column field="duration" label="Duration (minutes)" sortable>
