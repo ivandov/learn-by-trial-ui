@@ -33,7 +33,7 @@
             {{props.row.trials.length}}
           </b-table-column>
           <b-table-column field="successRate" label="Success Rate" sortable>
-            <span class="tag" v-bind:class="[props.row.successRateClass]" v-show="props.row.trials.length > 0">{{calculateSuccessRate(props.row)}}%</span>
+            <span class="tag is-medium is-rounded" v-bind:class="[props.row.successRateClass]" v-show="props.row.trials.length > 0">{{calculateSuccessRate(props.row)}}%</span>
           </b-table-column>
           <b-table-column field="" label="" class="is-fullwidth">
             <button class="button is-info" @click="viewTrials(props.row.trials)">View Trials</button>

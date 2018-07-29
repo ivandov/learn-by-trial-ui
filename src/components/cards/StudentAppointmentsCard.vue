@@ -20,6 +20,10 @@
           <b-table-column field="sessions" label="Sessions">
             {{ props.row.sessions.length }}
           </b-table-column>
+
+          <b-table-column field="notes" label="Notes">
+            {{ props.row.notes }}
+          </b-table-column>
         </template>
 
         <template slot="empty">
