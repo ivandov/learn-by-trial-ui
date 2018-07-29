@@ -5,9 +5,12 @@
         <p class="card-header-title">Skill Programs</p>
       </header>
       <div class="card-content">
+        <!-- <p>These Skill Programs are the ones currently enabled for this Student.</p> -->
+        <p>Select a Skill Program card to view available Targets</p>
+        <br>
         <div class="columns is-multiline is-mobile is-centered">
           <div class="column is-4-tablet is-half-mobile colored-cards" v-for="program in programs" :key="program.id">
-            <div class="card has-text-centered colored-card" @click="selectTarget(program)">
+            <div class="card has-text-centered colored-card" @click="showTargetsModal(program)">
               <div class="card-content">
                 <p class="is-size-3-tablet is-size-4-mobile">{{program.label}}</p>
               </div>
@@ -16,38 +19,7 @@
         </div>
       </div>
     </div>
-
-    <b-modal :active.sync="isTargetModalActive">
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">{{modal.title}} - Targets</p>
-      </header>
-      <div class="card-content">
-        <span class="has-text-weight-bold">Description:</span>
-        <span>{{modal.description}}</span>
-        <br><br>
-        <b-collapse class="card" v-for="target in modal.targets" :key="target.id" :open="false">
-            <div slot="trigger" slot-scope="props" class="card-header">
-                <p class="card-header-title">{{target.label}}</p>
-                <a class="card-header-icon">
-                  <b-icon
-                      :icon="props.open ? 'menu-down' : 'menu-up'">
-                  </b-icon>
-                </a>
-            </div>
-            <div class="card-content">
-              <div class="content">{{target.description}}</div>
-            </div>
-            <footer class="card-footer trial">
-              <button class="button is-fullwidth is-success">Start Trial</button>
-            </footer>
-        </b-collapse>
-      </div>
-    </div>
-  </b-modal>
-
   </div>
-  
 </template>
 
 <script>
@@ -85,12 +57,14 @@ export default {
         progs.push({label: 'test1'})
         progs.push({label: 'test2'})
         progs.push({label: 'test3'})
-        progs.push({label: 'test4'})
-        progs.push({label: 'test5'})
-        progs.push({label: 'test6'})
+        // progs.push({label: 'test4'})
+        // progs.push({label: 'test5'})
+        // progs.push({label: 'test6'})
 
         this.programs = progs
-        console.log(this.programs)
+
+        // HACK shouldn't belong here
+        this.$root.$emit('showSessionDetails')
       }
       catch (err) {
         this.$toast.open({
@@ -102,7 +76,7 @@ export default {
       }
     },
 
-    async selectTarget (program) {
+    showTargetsModal (program) {
       if (!program.id) {
         this.$toast.open({
           duration: 3000,
@@ -110,15 +84,17 @@ export default {
           position: 'is-bottom',
           type: 'is-danger'
         })
-
         return
       }
 
-      this.modal.title = program.label
-      this.modal.description = program.description
-      this.modal.targets = program.targets
-
-      this.isTargetModalActive = true
+      this.$modal.open({
+        parent: this,
+        props: {
+          program: program
+        },
+        component: TargetsModal,
+        hasModalCard: true
+      })
     }
   }
 }

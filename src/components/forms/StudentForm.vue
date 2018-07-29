@@ -1,47 +1,47 @@
 <template>
-    <div class="card">
-      <header class="card-header">
-        <p class="card-header-title">Add New Student</p>
-      </header>
-      <div class="card-content">
-        <div class="field">
-          <label class="label">Name</label>
-          <div class="control">
-            <input class="input" type="text" placeholder="First and last name" v-model="student.name">
-          </div>
+  <div class="card">
+    <header class="card-header">
+      <p class="card-header-title">Add New Student</p>
+    </header>
+    <div class="card-content">
+      <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="First and last name" v-model="student.name">
         </div>
-
-        <b-field label="Birthdate">
-          <b-datepicker
-            placeholder="Tap to select..."
-            icon="calendar-today"
-            v-model="student.birthdate">
-          </b-datepicker>
-        </b-field>
-
-        <b-field label="Sex">
-          <div class="block">
-              <b-radio v-model="student.sex" native-value="Female">Female</b-radio>
-              <b-radio v-model="student.sex" native-value="Male">Male</b-radio>
-          </div>
-        </b-field>
-
-        <b-field label="Race">
-          <b-select placeholder="Select a race" v-model="student.race">
-              <option
-                  v-for="race in races"
-                  :value="race"
-                  :key="race">
-                  {{ race }}
-              </option>
-          </b-select>
-        </b-field>
-
       </div>
-      <footer class="card-footer">
-        <a class="card-footer-item" @click="addStudent">Add</a>
-      </footer>
+
+      <b-field label="Birthdate">
+        <b-datepicker
+          placeholder="Tap to select..."
+          icon="calendar-today"
+          v-model="student.birthdate">
+        </b-datepicker>
+      </b-field>
+
+      <b-field label="Sex">
+        <div class="block">
+            <b-radio v-model="student.sex" native-value="Female">Female</b-radio>
+            <b-radio v-model="student.sex" native-value="Male">Male</b-radio>
+        </div>
+      </b-field>
+
+      <b-field label="Race">
+        <b-select placeholder="Select a race" v-model="student.race">
+            <option
+                v-for="race in races"
+                :value="race"
+                :key="race">
+                {{ race }}
+            </option>
+        </b-select>
+      </b-field>
+
     </div>
+    <footer class="card-footer">
+      <a class="card-footer-item" @click="addStudent">Add</a>
+    </footer>
+  </div>
 </template>
 
 <script>

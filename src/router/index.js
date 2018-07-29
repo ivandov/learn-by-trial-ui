@@ -16,7 +16,8 @@ import StudentMain from '@/views/dashboard/students/StudentMain'
 // Dashboard -> Appointments
 import AppointmentDash from '@/views/dashboard/appointments/AppointmentDash'
 import AppointmentMain from '@/views/dashboard/appointments/AppointmentMain'
-import SessionDash from '@/views/dashboard/appointments/SessionDash'
+import SessionPrograms from '@/views/dashboard/appointments/SessionPrograms'
+import SessionTrial from '@/views/dashboard/appointments/SessionTrial'
 
 Vue.use(Router)
 
@@ -52,12 +53,11 @@ export default new Router({
         },
         {
           path: 'students/:id',
-          name: 'Student',
           component: StudentDash,
           children: [
             {
               path: '/',
-              name: 'StudentDashHome',
+              name: 'Student',
               component: StudentMain
             }
           ]
@@ -70,12 +70,19 @@ export default new Router({
             {
               path: ':appointmentId',
               name: 'AppointmentMain',
-              component: AppointmentMain
+              component: AppointmentMain,
+              props: true
             },
             {
               path: ':appointmentId/sessions/:sessionId',
-              name: 'SessionDash',
-              component: SessionDash
+              name: 'SessionPrograms',
+              component: SessionPrograms
+            },
+            {
+              path: ':appointmentId/sessions/:sessionId/trial',
+              name: 'SessionTrial',
+              component: SessionTrial,
+              props: true
             }
           ]
         },

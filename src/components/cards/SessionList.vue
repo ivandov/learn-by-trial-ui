@@ -19,12 +19,15 @@
         </template>
 
         <template slot-scope="props">
-          <b-table-column field="id" label="Date & Time" sortable>
+          <b-table-column field="id" label="id" sortable>
+            {{props.row.id}}
+          </b-table-column>
+          <b-table-column field="date" label="Date & Time" sortable>
             <!-- <router-link :to="{name: 'StudentProgramEdit', params: {id: $route.params.id, programId: props.row.id}}">{{props.row.label}}</router-link> -->
             {{props.row.date | moment("MM/DD/YYYY hh:mm a")}}
           </b-table-column>
           <b-table-column field="startDate" label="Trials">
-            0
+            {{props.row.trials.length}}
           </b-table-column>
         </template>
       </b-table>
@@ -77,7 +80,7 @@ export default {
       try {
         let sessResp = await this.$http.post(uri, session)
         this.$router.push({
-          name: 'SessionDash',
+          name: 'SessionPrograms',
           params: {
             id: this.$route.params.id,
             appointmentId: sessResp.data.appointmentId,
@@ -97,7 +100,7 @@ export default {
 
     async getSessions () {
       let appointmentId = this.$route.params.appointmentId
-      let uri = `/sessions?filter[where][appointmentId]=${appointmentId}`
+      let uri = `/sessions?filter[where][appointmentId]=${appointmentId}&filter[include]=trials`
       try {
         let getResp = await this.$http.get(uri)
         this.sessions = getResp.data

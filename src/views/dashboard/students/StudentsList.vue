@@ -20,7 +20,7 @@
           <b-table :data="filter" class="action-col" hoverable striped>
             <template slot-scope="props">
               <b-table-column field="name" label="Name">
-                <router-link :to="{name: 'Student', params: { id: props.row.id}}">{{ props.row.name }}</router-link>
+                <router-link :to="{name: 'Student', params: { id: props.row.id.toString()}}">{{ props.row.name }}</router-link>
               </b-table-column>
 
               <b-table-column field="date" label="Birthdate">
@@ -28,7 +28,7 @@
               </b-table-column>
 
               <b-table-column label="Sex">
-                <b-icon 
+                <b-icon
                   :icon="props.row.sex === 'Male' ? 'gender-male' : 'gender-female'">
                 </b-icon>
                 {{ props.row.sex }}

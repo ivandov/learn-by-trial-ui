@@ -17,7 +17,10 @@
           </tr>
           <tr>
             <th>Sex</th>
-            <td>{{ student.sex }}</td>
+            <td>
+              {{ student.sex }}
+              <b-icon :icon="student.sex === 'Male' ? 'gender-male' : 'gender-female'" />
+            </td>
           </tr>
           <tr>
             <th>Race</th>
