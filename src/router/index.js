@@ -19,6 +19,9 @@ import AppointmentMain from '@/views/dashboard/appointments/AppointmentMain'
 import SessionPrograms from '@/views/dashboard/appointments/SessionPrograms'
 import SessionTrial from '@/views/dashboard/appointments/SessionTrial'
 
+// Dashboard -> Reports
+import ReportDash from '@/views/dashboard/reports/ReportDash'
+
 Vue.use(Router)
 
 export default new Router({
@@ -94,6 +97,19 @@ export default new Router({
         {
           path: 'students/:id/:catchall',
           redirect: { name: 'Student' }
+        },
+        {
+          path: 'reports',
+          name: 'Reports',
+          component: Students,
+          props: {
+            reports: true
+          }
+        },
+        {
+          path: 'reports/:id',
+          name: 'StudentReports',
+          component: ReportDash
         }
       ]
     }

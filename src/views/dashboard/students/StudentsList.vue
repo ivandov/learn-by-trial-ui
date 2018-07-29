@@ -5,7 +5,7 @@
         <header class="card-header">
           <p class="card-header-title">All Students</p>
           <div class="card-header-icon">
-            <button class="button is-info" @click="showAddStudentModal">Add Student</button>
+            <button class="button is-info" v-if="!reports" @click="showAddStudentModal">Add Student</button>
           </div>
         </header>
         <div class="card-content">
@@ -20,7 +20,10 @@
           <b-table :data="filter" class="action-col" hoverable striped>
             <template slot-scope="props">
               <b-table-column field="name" label="Name">
-                <router-link :to="{name: 'Student', params: { id: props.row.id.toString()}}">{{ props.row.name }}</router-link>
+                <router-link v-if="!reports" :to="{name: 'Student', params: { id: props.row.id.toString()}}">
+                  {{ props.row.name }}
+                </router-link>
+                <span v-else>{{ props.row.name }}</span>
               </b-table-column>
 
               <b-table-column field="date" label="Birthdate">
@@ -40,6 +43,10 @@
 
               <b-table-column field="" label="" v-if="appointments" class="is-fullwidth">
                 <button class="button is-primary" @click="createAppointment(props.row.id)">Start Appointment</button>
+              </b-table-column>
+
+              <b-table-column field="" label="" v-if="reports" class="is-fullwidth">
+                <button class="button is-primary" @click="viewReports(props.row.id)">View Reports</button>
               </b-table-column>
             </template>
 
@@ -65,7 +72,8 @@ import StudentForm from '@/components/forms/StudentForm.vue'
 
 export default {
   props: {
-    appointments: Boolean
+    appointments: Boolean,
+    reports: Boolean
   },
   data () {
     return {
@@ -119,6 +127,10 @@ export default {
         component: StudentForm,
         hasModalCard: true
       })
+    },
+
+    viewReports (studentId) {
+      this.$router.push({name: 'StudentReports', params: {id: studentId}})
     }
   }
 }
