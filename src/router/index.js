@@ -59,6 +59,12 @@ export default new Router({
               path: '/',
               name: 'Student',
               component: StudentMain
+            },
+            {
+              path: 'appointments',
+              name: 'Appointments',
+              component: StudentMain
+              // redirect: { name: 'Student', hash: 'appointment' }
             }
           ]
         },

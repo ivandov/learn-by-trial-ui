@@ -19,6 +19,12 @@ export default {
   },
   data () {
     return {}
+  },
+  mounted () {
+    if (this.$route.path.includes('appointments')) {
+      this.$router.replace({name: 'Student'})
+      this.$root.$emit('showAppointments')
+    }
   }
 }
 </script>

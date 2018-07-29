@@ -13,6 +13,10 @@
             {{ props.row.date | moment("MM/DD/YYYY hh:mm a") }}
           </b-table-column>
 
+          <b-table-column field="duration" label="Duration (minutes)" sortable>
+            {{ calculateDuration(props.row) }}
+          </b-table-column>
+
           <b-table-column field="sessions" label="Sessions">
             {{ props.row.sessions.length }}
           </b-table-column>
@@ -59,6 +63,7 @@ export default {
         }
       })
     },
+
     async getStudentAppointments (id) {
       let uri = `/students/${id}/appointments?filter[include]=sessions`
 
@@ -74,6 +79,17 @@ export default {
           type: 'is-danger'
         })
       }
+    },
+
+    calculateDuration (session) {
+      // console.log(session)
+      let duration = new Date(session.endDate) - new Date(session.date)
+      let seconds = Math.floor(duration / 1000)
+      let minutes = Math.ceil(seconds / 60)
+
+      if (isNaN(minutes)) return 'Uncompleted'
+
+      return minutes
     }
   }
 }

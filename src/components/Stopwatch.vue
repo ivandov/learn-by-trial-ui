@@ -11,6 +11,9 @@
       },
       initState: {
         type: String
+      },
+      initStartTime: {
+        type: String
       }
     },
     data: function () {
@@ -23,6 +26,12 @@
       }
     },
     mounted: function () {
+      console.log(this.initStartTime)
+      if (this.initStartTime) {
+        this.startTime = new Date(this.initStartTime)
+        console.log(this.startTime)
+      }
+
       if (this.state === 'started') {
         this.start()
       }

@@ -39,7 +39,7 @@
               </b-table-column>
 
               <b-table-column field="" label="" v-if="appointments" class="is-fullwidth">
-                <button class="button is-success" @click="createAppointment(props.row.id)">Start Appointment</button>
+                <button class="button is-primary" @click="createAppointment(props.row.id)">Start Appointment</button>
               </b-table-column>
             </template>
 

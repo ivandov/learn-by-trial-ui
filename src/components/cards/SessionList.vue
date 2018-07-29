@@ -36,7 +36,7 @@
             <span class="tag" v-bind:class="[props.row.successRateClass]" v-show="props.row.trials.length > 0">{{calculateSuccessRate(props.row)}}%</span>
           </b-table-column>
           <b-table-column field="" label="" class="is-fullwidth">
-            <button class="button is-success" @click="viewTrials(props.row.trials)">View Trials</button>
+            <button class="button is-info" @click="viewTrials(props.row.trials)">View Trials</button>
           </b-table-column>
         </template>
       </b-table>
@@ -144,19 +144,6 @@ export default {
       if (session.successRate <= 33) session.successRateClass = 'is-danger'
 
       return session.successRate
-    },
-
-    getSuccessTagClass (session) {
-      let trials = session.trials
-
-      if (trials.length === 0) return undefined
-
-      let correctCount = 0
-      trials.forEach((trial) => {
-        if (trial.correctAnswer) correctCount += 1
-      })
-
-      return Math.round(correctCount / trials.length * 100)
     }
   }
 }
