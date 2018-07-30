@@ -91,10 +91,7 @@ export default {
       }
       else {
         // perform logout
-        localStorage.removeItem('authenticated')
-        localStorage.removeItem('lbt-token')
-        this.authText = 'Login'
-        this.$router.replace({name: 'Home'})
+        this.doLogout()
       }
     },
     profile () {
@@ -105,6 +102,33 @@ export default {
         position: 'is-bottom',
         type: 'is-danger'
       })
+    },
+    async doLogout () {
+      try {
+        let uri = `/analyst/logout?access_token=${localStorage.getItem('lbt-token')}`
+        let res = await this.$http.post(uri)
+        console.log(res)
+        localStorage.removeItem('authenticated')
+        localStorage.removeItem('lbt-token')
+        this.authText = 'Login'
+
+        this.$toast.open({
+          duration: 5000,
+          message: 'Successfully logged out',
+          position: 'is-bottom',
+          type: 'is-warning'
+        })
+
+        this.$router.replace({name: 'Home'})
+      }
+      catch (e) {
+        this.$toast.open({
+          duration: 5000,
+          message: e.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      }
     }
   }
 }

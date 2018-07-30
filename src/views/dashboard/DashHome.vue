@@ -1,15 +1,17 @@
 <template>
   <div class="columns is-multiline is-mobile is-centered">
-    <div class="column is-4-tablet is-12-mobile colored-cards">
+    <div class="column is-10-tablet is-12-mobile colored-cards">
       <div class="card has-text-centered colored-card" @click="goToStudents">
         <div class="card-content">
+          <b-icon icon="account-group" size="is-large" style="margin-right:20px;"></b-icon>
           <p class="is-size-3-tablet is-size-4-mobile">Students</p>
         </div>
       </div>
     </div>
-    <div class="column is-4-tablet is-12-mobile colored-cards">
+    <div class="column is-10-tablet is-12-mobile colored-cards">
       <div class="card has-text-centered colored-card" @click="goToReports">
         <div class="card-content">
+          <b-icon icon="chart-areaspline" size="is-large" style="margin-right:20px;"></b-icon>
           <p class="is-size-3-tablet is-size-4-mobile">Reports</p>
         </div>
       </div>
@@ -42,3 +44,16 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+@media only screen and (max-width: 600px) {
+  .colored-card .card-content{
+    min-height: 35vh;
+  }
+}
+@media only screen and (min-width: 600px) {
+  .colored-card .card-content{
+    min-height: 30vh;
+  }
+}
+</style>

@@ -61,9 +61,8 @@ export default {
         // console.log(token)
         localStorage.setItem('authenticated', true)
         localStorage.setItem('lbt-token', token.id)
-        // this.$http.defaults.headers.common['Authorization'] = token.id
-
         this.$router.replace({path: '/dashboard'})
+        // location.reload()
       }
       catch (e) {
         this.$toast.open({
