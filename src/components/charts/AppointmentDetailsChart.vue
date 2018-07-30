@@ -4,7 +4,7 @@
       <p class="card-header-title">Appointment Details</p>
     </header>
     <div class="card-content">
-      <bar-chart :chart-data="datacollection" :options="options" height="200"></bar-chart>
+      <bar-chart :chart-data="datacollection" :options="options" :height="200"></bar-chart>
     </div>
   </div>
 </template>

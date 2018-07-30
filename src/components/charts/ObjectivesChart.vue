@@ -9,7 +9,7 @@
         Only sessions with recorded Trials are displayed
       </p>
       <br>
-      <line-chart :chart-data="chartData" :options="options" height="100"></line-chart>
+      <line-chart :chart-data="chartData" :options="options" :height="150"></line-chart>
     </div>
   </div>
 </template>
@@ -24,7 +24,6 @@
     },
     data () {
       return {
-        height: 300,
         allObjectives: [],
         chartData: null,
         options: {
@@ -54,14 +53,6 @@
               }
             }]
           }
-        }
-      }
-    },
-    computed: {
-      myStyles () {
-        return {
-          height: `${this.height}px`,
-          position: 'relative'
         }
       }
     },
@@ -146,12 +137,12 @@
       },
 
       setChartData (sessObjs) {
-        console.log(sessObjs)
-        console.log(this.allObjectives)
+        // console.log(sessObjs)
+        // console.log(this.allObjectives)
 
         // let sessLabels = sessObjs.map((o,index) => new Date(o.date).toLocaleString().split(',')[0])
         let sessLabels = sessObjs.map((o, index) => index)
-        console.log(sessLabels)
+        // console.log(sessLabels)
 
         let chartData = {
           labels: sessLabels
@@ -183,11 +174,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-canvas {
-  height: 400px !important;
-}
-
-</style>

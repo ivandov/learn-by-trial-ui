@@ -14,3 +14,23 @@ export function getRandomColor () {
 
   return {border: borderCol, background: backgroundCol}
 }
+
+export function calculateDuration (obj, returnType) {
+  // console.log(obj)
+  let returnVal
+
+  let duration = new Date(obj.endDate) - new Date(obj.date)
+  let seconds = Math.floor(duration / 1000)
+  let minutes = Math.ceil(seconds / 60)
+
+  if (returnType === 'seconds') {
+    console.log(seconds)
+    returnVal = seconds
+  }
+  else if (returnType === 'minutes') {
+    returnVal = minutes
+  }
+
+  if (isNaN(returnVal)) return undefined
+  return returnVal
+}

@@ -4,18 +4,18 @@
       <p class="card-header-title">Session Details</p>
     </header>
     <div class="card-content">
-      <bar-chart :chart-data="datacollection" :options="options" height="200"></bar-chart>
+      <line-chart :chart-data="datacollection" :options="options" :height="200"></line-chart>
     </div>
   </div>
 </template>
 
 <script>
-  import BarChart from './BarChart.js'
+  import LineChart from './LineChart.js'
   import * as chartUtils from '@/utils/chartUtils'
 
   export default {
     components: {
-      BarChart
+      LineChart
     },
     data () {
       return {
@@ -45,7 +45,7 @@
                   drawOnChartArea: false // only want the grid lines for one axis to show up
                 },
                 scaleLabel: {
-                  labelString: 'Duration (minutes)',
+                  labelString: 'Duration (seconds)',
                   display: true
                 }
               }
@@ -64,91 +64,80 @@
       }
     },
     mounted () {
-      this.fetchAppointments()
+      this.fetchData()
     },
     methods: {
+      async fetchData () {
+        this.appointments = await this.fetchAppointments()
+        let appointmentIds = this.appointments.map(a => a.id)
+        this.sessions = await this.fetchSessions(appointmentIds)
+        // console.log('this.sessions', this.sessions)
+
+        this.setChartData(this.sessions)
+      },
+
       async fetchAppointments () {
         let id = this.$route.params.id
-        let uri = `/appointments?filter[where][studentId]=${id}&filter[include]=sessions`
+        let uri = `/appointments?filter[where][studentId]=${id}`
         let resp = await this.$http.get(uri)
-        this.appointments = resp.data
-        this.fillData(this.appointments)
+        return resp.data
       },
-      fillData (appointments) {
-        // console.log('Plotting appointments: ' + JSON.stringify(appointments))
 
+      async fetchSessions (appIds) {
+        let filter = {
+          where: {
+            appointmentId: {
+              inq: appIds
+            }
+          },
+          include: 'trials'
+        }
+
+        let uri = `/sessions?filter=${JSON.stringify(filter)}`
+        let resp = await this.$http.get(uri)
+        return resp.data
+      },
+
+      setChartData (sessions) {
+        // console.log('Plotting sessions:', sessions)
         let labels = [] // x axis labels
-        let sessionCounts = []
+        let trialCounts = []
         let durations = []
 
-        appointments.forEach((apt, i) => {
-          if (apt.sessions.length === 0) return
+        sessions.forEach((session, i) => {
+          if (session.trials.length === 0) return
           // console.log(apt)
-          let l = new Date(apt.date).toLocaleString().split(',')
+          let l = new Date(session.date).toLocaleString().split(',')[1]
           labels.push(l)
-          durations.push(this.calculateDuration(apt))
-          sessionCounts.push(apt.sessions.length)
+          durations.push(chartUtils.calculateDuration(session, 'seconds'))
+          trialCounts.push(session.trials.length)
         })
+
+        let colors1 = chartUtils.getRandomColor()
+        let colors2 = chartUtils.getRandomColor()
 
         this.datacollection = {
           labels: labels,
           datasets: [
             {
-              label: 'Sessions per Appointment',
-              data: sessionCounts,
+              label: 'Trials per Session',
+              data: trialCounts,
               yAxisID: 'y-axis-1',
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255,99,132,1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
-              ],
-              borderWidth: 1,
-              type: 'line'
+              backgroundColor: colors1.background,
+              borderColor: colors1.border,
+              borderWidth: 1
             },
             {
-              label: 'Appointment Duration',
+              label: 'Session Duration',
               data: durations,
-              // backgroundColor: chartUtils.getRandomColor().background,
-              borderColor: chartUtils.getRandomColor().border,
+              backgroundColor: colors2.background,
+              borderColor: colors2.border,
               yAxisID: 'y-axis-2',
-              type: 'line',
               fill: false
             }
           ]
         }
-      },
-      calculateDuration (apt) {
-        // console.log(apt)
-        let duration = new Date(apt.endDate) - new Date(apt.date)
-        let seconds = Math.floor(duration / 1000)
-        let minutes = Math.ceil(seconds / 60)
-
-        if (isNaN(minutes)) return undefined
-
-        return minutes
-      },
-      getRandomInt () {
-        return Math.floor(Math.random() * (50 - 5 + 1)) + 5
       }
     }
   }
 </script>
-
-<style>
-  .small {
-    max-width: 600px;
-    max-height: 400px;
-    margin:  150px auto;
-  }
-</style>
