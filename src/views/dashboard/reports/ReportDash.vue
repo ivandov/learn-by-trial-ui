@@ -1,12 +1,12 @@
 <template>
-  <div class="columns">
+  <div class="columns is-multiline">
     <div class="column is-6">
       <!-- <random-chart /> -->
       <appointments-chart />
-      
     </div>
-    <div class="column is-6">
-      <trial-duration />
+    <div class="column is-6 is-12-tablet">
+      <!-- <trial-duration /> -->
+      <objectives-chart />
     </div>
   </div>
 </template>
@@ -15,11 +15,14 @@
 import RandomChart from '@/components/charts/RandomChart'
 import AppointmentsChart from '@/components/charts/AppointmentsChart'
 import TrialDuration from '@/components/charts/TrialDuration'
+import ObjectivesChart from '@/components/charts/ObjectivesChart'
+
 export default {
   components: {
     AppointmentsChart,
     RandomChart,
-    TrialDuration
+    TrialDuration,
+    ObjectivesChart
   },
   data () {
     return {

@@ -1,17 +1,16 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">Appointment Details</p>
+      <p class="card-header-title">Session Details</p>
     </header>
     <div class="card-content">
-      <bar-chart :chart-data="datacollection" :options="options" height="200"></bar-chart>
+      <bar-chart :chart-data="datacollection" :options="options"></bar-chart>
     </div>
   </div>
 </template>
 
 <script>
   import BarChart from './BarChart.js'
-  import * as chartUtils from '@/utils/chartUtils'
 
   export default {
     components: {
@@ -29,36 +28,19 @@
                 position: 'left',
                 ticks: {
                   beginAtZero: true
-                },
-                scaleLabel: {
-                  labelString: 'Sessions',
-                  display: true
                 }
               },
               {
                 id: 'y-axis-2',
-                // type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
                 display: true,
                 position: 'right',
                 // grid line settings
                 gridLines: {
                   drawOnChartArea: false // only want the grid lines for one axis to show up
-                },
-                scaleLabel: {
-                  labelString: 'Duration (minutes)',
-                  display: true
                 }
               }
-            ],
-            xAxes: [{
-              ticks: {
-                autoSkip: false
-              },
-              scaleLabel: {
-                labelString: 'Appointment Date & Time',
-                display: true
-              }
-            }]
+            ]
           }
         }
       }
@@ -75,16 +57,25 @@
         this.fillData(this.appointments)
       },
       fillData (appointments) {
-        // console.log('Plotting appointments: ' + JSON.stringify(appointments))
+        console.log('Plotting appointments: ' + JSON.stringify(appointments))
 
-        let labels = [] // x axis labels
+        // this.datacollection = {
+        //   labels: [],
+        //   datasets: []
+        // }
+        let labels = []
         let sessionCounts = []
         let durations = []
 
         appointments.forEach((apt, i) => {
+          // this.datacollection.labels.push(i)
+          // this.datacollection.datasets.push({
+          //   label: i,
+          //   data: [apt.sessions.length]
+          // })
           if (apt.sessions.length === 0) return
-          // console.log(apt)
-          let l = new Date(apt.date).toLocaleString().split(',')
+          console.log(apt)
+          let l = new Date(apt.date).toLocaleString().split(',')[0]
           labels.push(l)
           durations.push(this.calculateDuration(apt))
           sessionCounts.push(apt.sessions.length)
@@ -113,17 +104,13 @@
                 'rgba(153, 102, 255, 1)',
                 'rgba(255, 159, 64, 1)'
               ],
-              borderWidth: 1,
-              type: 'line'
+              borderWidth: 1
             },
             {
               label: 'Appointment Duration',
               data: durations,
-              // backgroundColor: chartUtils.getRandomColor().background,
-              borderColor: chartUtils.getRandomColor().border,
               yAxisID: 'y-axis-2',
-              type: 'line',
-              fill: false
+              type: 'line'
             }
           ]
         }
@@ -148,7 +135,6 @@
 <style>
   .small {
     max-width: 600px;
-    max-height: 400px;
     margin:  150px auto;
   }
 </style>

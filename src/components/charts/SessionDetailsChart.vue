@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">Appointment Details</p>
+      <p class="card-header-title">Session Details</p>
     </header>
     <div class="card-content">
       <bar-chart :chart-data="datacollection" :options="options" height="200"></bar-chart>
@@ -31,7 +31,7 @@
                   beginAtZero: true
                 },
                 scaleLabel: {
-                  labelString: 'Sessions',
+                  labelString: 'Trials',
                   display: true
                 }
               },
@@ -55,7 +55,7 @@
                 autoSkip: false
               },
               scaleLabel: {
-                labelString: 'Appointment Date & Time',
+                labelString: 'Session Date & Time',
                 display: true
               }
             }]
