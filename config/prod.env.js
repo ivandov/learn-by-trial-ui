@@ -1,6 +1,6 @@
 module.exports = {
   NODE_ENV: '"production"',
-  API_URL: JSON.stringify(process.env.API_URL)
+  API_URL: '"https://learnbytrialapi.us-east.mybluemix.net/api"'
   // module: {
   //   rules: [
   //     // ... other rules omitted

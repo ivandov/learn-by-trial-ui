@@ -52,10 +52,11 @@
 
 <script>
 export default {
+  props: ['programId'],
   data () {
     return {
       target: {
-        skillProgramId: this.$route.params.programId,
+        skillProgramId: this.programId,
         startDate: new Date(),
         promptLevel: 0
       },
@@ -63,7 +64,7 @@ export default {
     }
   },
   mounted () {
-    console.log('form' + this.create)
+    // console.log('form' + this.create)
   },
   methods: {
     async createTarget () {

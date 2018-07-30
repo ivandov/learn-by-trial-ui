@@ -80,6 +80,9 @@ export default {
       this.$modal.open({
         parent: this,
         component: TargetForm,
+        props: {
+          programId: this.programId
+        },
         hasModalCard: true
       })
     }

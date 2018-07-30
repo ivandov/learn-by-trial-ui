@@ -3,13 +3,13 @@
     <navbar logged-in></navbar>
     <div id="dashboard-content">
       <div class="container">
-        <nav class="breadcrumb is-hidden-mobile" aria-label="breadcrumbs">
+        <!-- <nav class="breadcrumb is-hidden-mobile" aria-label="breadcrumbs">
           <ul>
             <li v-for="(crumb, index) in breadcrumbs" :key="index" v-bind:class="{'is-active' : index === (breadcrumbs.length-1)}" >
               <a :href="crumb.path" >{{ crumb.name | capitalize }}</a>
             </li>
-          </ul> 
-        </nav>
+          </ul>
+        </nav> -->
         <router-view/>
       </div>
     </div>

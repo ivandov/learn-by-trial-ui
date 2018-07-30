@@ -105,9 +105,12 @@ export default {
     },
     async doLogout () {
       try {
-        let uri = `/analyst/logout?access_token=${localStorage.getItem('lbt-token')}`
-        let res = await this.$http.post(uri)
-        console.log(res)
+        if (localStorage.getItem('lbt-token') !== null) {
+          let uri = `/analyst/logout?access_token=${localStorage.getItem('lbt-token')}`
+          let res = await this.$http.post(uri)
+          console.log(res)
+        }
+
         localStorage.removeItem('authenticated')
         localStorage.removeItem('lbt-token')
         this.authText = 'Login'
