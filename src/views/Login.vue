@@ -7,17 +7,18 @@
           <p class="subtitle">Please login to proceed.</p>
           <div class="box">
             <figure class="avatar">
-              <img src="https://placehold.it/128x128">
+              <!-- <img src="https://placehold.it/128x128"> -->
+              <img src="../assets/logo-small.png">
             </figure>
             <!-- <form> -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" type="username" placeholder="Username" autofocus="">
+                  <input class="input is-medium" type="username" placeholder="Username" autofocus="" value="admin@learnbytrial.app">
                 </div>
               </div>
               <div class="field">
                 <div class="control">
-                  <input class="input is-large" type="password" placeholder="Password">
+                  <input class="input is-medium" type="password" placeholder="Password" value="learnbytrial">
                 </div>
               </div>
               <div class="field">
@@ -26,14 +27,14 @@
                 Remember me
                 </label>
               </div>
-              <button class="button is-block is-success is-large is-fullwidth" @click="login">Login</button>
+              <button class="button is-block is-success is-medium is-fullwidth" @click="login">Login</button>
             <!-- </form> -->
           </div>
-          <p>
+          <!-- <p>
             <a href="../">Sign Up</a> &nbsp;·&nbsp;
             <a href="../">Forgot Password</a>
-            <!-- <a href="../">Need Help?</a> -->
-          </p>
+            <! <a href="../">Need Help?</a>
+          </p> -->
         </div>
       </div>
     </div>
@@ -95,5 +96,9 @@ p {
 }
 p.subtitle {
   padding-top: 1rem;
+}
+#app {
+  margin-bottom: 0px !important;
+  background-color: black;
 }
 </style>

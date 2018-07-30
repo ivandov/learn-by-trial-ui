@@ -14,8 +14,8 @@
       </div>
       <div class="navbar-menu" v-bind:class="{ 'is-active' : showNav }">
         <div class="navbar-end">
-          <a class="navbar-item has-text-right" @click="profile">Profile</a>
-          <hr class="navbar-divider">
+          <!-- <a class="navbar-item has-text-right" @click="profile">Profile</a>
+          <hr class="navbar-divider"> -->
           <a class="navbar-item has-text-right" @click="auth">{{ authText }}</a>
         </div>
       </div>
