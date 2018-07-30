@@ -3,7 +3,10 @@ applications:
 - name: learn_by_trial
   memory: 512M
   instances: 1
+  path: dist
+  command: npm install -g serve && serve
   env:
-    NPM_CONFIG_PRODUCTION: false
-    NODE_ENV: development
+    # NPM_CONFIG_PRODUCTION: false
+    # NODE_ENV: development
+    # API_URL: https://learnbytrialapi.us-east.mybluemix.net/api
     API_URL: https://learnbytrialapi.us-east.mybluemix.net/api
