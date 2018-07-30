@@ -14,8 +14,8 @@
       </div>
       <div class="navbar-menu" v-bind:class="{ 'is-active' : showNav }">
         <div class="navbar-end">
-          <!-- <a class="navbar-item has-text-right" @click="profile">Profile</a>
-          <hr class="navbar-divider"> -->
+          <a class="navbar-item has-text-right" @click="profile" v-if="showProfile">Profile</a>
+          <hr class="navbar-divider">
           <a class="navbar-item has-text-right" @click="auth">{{ authText }}</a>
         </div>
       </div>
@@ -70,7 +70,8 @@ export default {
       homeLink: '/',
       authLink: '/login',
       authText: 'Login',
-      showNav: false
+      showNav: false,
+      showProfile: localStorage.getItem('authenticated')
     }
   },
   mounted () {
@@ -91,11 +92,13 @@ export default {
       else {
         // perform logout
         localStorage.removeItem('authenticated')
+        localStorage.removeItem('lbt-token')
         this.authText = 'Login'
         this.$router.replace({name: 'Home'})
       }
     },
     profile () {
+      alert(`Token: ${localStorage.getItem('lbt-token')}`)
       this.$toast.open({
         duration: 3000,
         message: `Profile not implemented yet!`,

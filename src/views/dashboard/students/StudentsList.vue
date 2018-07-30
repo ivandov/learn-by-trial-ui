@@ -98,8 +98,18 @@ export default {
   },
   methods: {
     async getStudents () {
-      let res = await this.$http.get('/students')
-      this.students = res.data
+      try {
+        let res = await this.$http.get('/students')
+        this.students = res.data
+      }
+      catch (e) {
+        this.$toast.open({
+          duration: 5000,
+          message: e.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      }
     },
 
     async createAppointment (studentId) {

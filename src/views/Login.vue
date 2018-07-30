@@ -13,12 +13,12 @@
             <!-- <form> -->
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium" type="username" placeholder="Username" autofocus="" value="admin@learnbytrial.app">
+                  <input class="input is-medium" type="username" placeholder="Username" autofocus="" v-model="credentials.email">
                 </div>
               </div>
               <div class="field">
                 <div class="control">
-                  <input class="input is-medium" type="password" placeholder="Password" value="learnbytrial">
+                  <input class="input is-medium" type="password" placeholder="Password" v-model="credentials.password">
                 </div>
               </div>
               <div class="field">
@@ -45,14 +45,34 @@
 export default {
   name: 'login',
   data () {
-    return {}
+    return {
+      credentials: {
+        email: 'admin@learnbytrial.app',
+        password: 'learnbytrial'
+      }
+    }
   },
   methods: {
-    login () {
+    async login () {
       // Reference this article: https://auth0.com/blog/build-an-app-with-vuejs/
+      try {
+        let res = await this.$http.post('/analyst/login', this.credentials)
+        let token = res.data
+        // console.log(token)
+        localStorage.setItem('authenticated', true)
+        localStorage.setItem('lbt-token', token.id)
+        // this.$http.defaults.headers.common['Authorization'] = token.id
 
-      localStorage.setItem('authenticated', true)
-      this.$router.replace({path: '/dashboard'})
+        this.$router.replace({path: '/dashboard'})
+      }
+      catch (e) {
+        this.$toast.open({
+          duration: 5000,
+          message: e.response.data.error.message,
+          position: 'is-bottom',
+          type: 'is-danger'
+        })
+      }
     }
   }
 }
